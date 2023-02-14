@@ -1,7 +1,7 @@
 # Hulk
 Fitness App for CSPB 3308
 
-### Project title: Hulk
+### Project Title: Project Hulk
 
 ### Team Number: 2
 
@@ -26,8 +26,8 @@ Fitness App for CSPB 3308
     </ul>
   <li>Minh Bui</li>
     <ul>
-        <li>Email: </li>
-        <li>Git: </li>
+        <li>Email: mibu4178@colorado.edu</li>
+        <li>Git: Minh-Thien-Bui</li>
     </ul>
   <li>Alex Cullens</li>
     <ul>
@@ -36,10 +36,10 @@ Fitness App for CSPB 3308
     </ul>
   </ul>
 
-### Day/Time/TimeZone for weekly meeting: 
+### Day/Time/TimeZone for weekly meeting: Thursday 5:00 PM Mountain Time
 
 ### Vision Statement: 
-Hulk is a revolutionary interface to help exercise enthusiast schedule their fitness plan. A user has the option to select a body part they would like to target from our webpage. When the body part is selected a specific list of calisthenic exercises tailored for that muscle region is displayed for the user. A user will have the ability to create complete full body workouts with our app alone.
+Project Hulk is a revolutionary interface to help exercise enthusiast schedule their fitness plan. A user has the option to select a body part they would like to target from our webpage. When the body part is selected a specific list of calisthenic exercises tailored for that muscle region is displayed for the user. A user will have the ability to create complete full body workouts with our app alone.
 
 ### Motivation: 
 This project idea provides a straightforward product that we can use to gain hands on experience with the knowledge we learn in class.  We will be able to practice building and designing interactive webpages utilizing the frontend and backend frameworks taught in 3308. We will also be able to practice using SQL databases which will hold all of our exercise data. In addition to the programming knowledge gained from this project we will gain valuable experience practicing Agile development in a group setting.
