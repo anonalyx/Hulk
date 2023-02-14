@@ -15,27 +15,29 @@ Fitness App for CSPB 3308
       <li>Git: adamjmcwilliams</li>
     </ul>
   <li>Nathan Palmer</li>
-  <ul>
-      <li>Email: napa8745@colorado.edu</li>
-      <li>Git: natepalmer7</li>
-  </ul>
+    <ul>
+        <li>Email: napa8745@colorado.edu</li>
+        <li>Git: natepalmer7</li>
+    </ul>
   <li>Danielle Aras</li>
-  <ul>
-      <li>Email: daar8381@colorado.edu</li>
-      <li>Git: daras-cu</li>
-  </ul>
+    <ul>
+        <li>Email: daar8381@colorado.edu</li>
+        <li>Git: daras-cu</li>
+    </ul>
   <li>Minh Bui</li>
-  <ul>
-      <li>Email: </li>
-      <li>Git: </li>
-  </ul>
+    <ul>
+        <li>Email: </li>
+        <li>Git: </li>
+    </ul>
   <li>Alex Cullens</li>
-  <ul>
-      <li>Email: </li>
-      <li>Git: </li>
+    <ul>
+        <li>Email: </li>
+        <li>Git: </li>
+    </ul>
   </ul>
-  </ul>
-  
+
+### Day/Time/TimeZone for weekly meeting: 
+
 ### Vision Statement: 
 Hulk is a revolutionary interface to help exercise enthusiast schedule their fitness plan. A user has the option to select a body part they would like to target from our webpage. When the body part is selected a specific list of calisthenic exercises tailored for that muscle region is displayed for the user. A user will have the ability to create complete full body workouts with our app alone.
 
