@@ -29,10 +29,10 @@ Fitness App for CSPB 3308
         <li>Email: mibu4178@colorado.edu</li>
         <li>Git: Minh-Thien-Bui</li>
     </ul>
-  <li>Alex Cullens</li>
+  <li>Alex Cullen</li>
     <ul>
-        <li>Email: </li>
-        <li>Git: </li>
+        <li>Email: alcu6962@colorado.edu</li>
+        <li>Git: anonalyx</li>
     </ul>
   </ul>
 
