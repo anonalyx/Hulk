@@ -39,7 +39,7 @@ Fitness App for CSPB 3308
 ### Day/Time/TimeZone for weekly meeting: Thursday 5:00 PM Mountain Time
 
 ### Vision Statement: 
-Project Hulk is a revolutionary interface to help exercise enthusiast schedule their fitness plan. A user has the option to select a body part they would like to target from our webpage. When the body part is selected a specific list of calisthenic exercises tailored for that muscle region is displayed for the user. A user will have the ability to create complete full body workouts with our app alone.
+Project Hulk is a useful interface to help exercise enthusiast schedule their fitness plan. A user has the option to select a body part they would like to target from our webpage. When the body part is selected a specific list of calisthenic exercises tailored for that muscle region is displayed for the user. A user will have the ability to create complete full body workouts with our app alone.
 
 ### Motivation: 
 This project idea provides a straightforward product that we can use to gain hands on experience with the knowledge we learn in class.  We will be able to practice building and designing interactive webpages utilizing the frontend and backend frameworks taught in 3308. We will also be able to practice using SQL databases which will hold all of our exercise data. In addition to the programming knowledge gained from this project we will gain valuable experience practicing Agile development in a group setting.
@@ -60,6 +60,6 @@ This project idea provides a straightforward product that we can use to gain han
 -	To ensure everyone has equal contribution we will self-delegate the work evenly considering the developers experience level. When someone is stuck we can help each other directly or point to useful resources.
 
 ### Development method: SCRUM
-We will utilize the SCRUM development method. We will have weekly standup meetings discussing what we have completed so far, what we are working on, and what is blocking our current progress. Each meeting will have a SCRUM Master which will rotate each week. We will approach development in iterations, first completing a simple working implementation of our project idea and then adding more features each cycle.
+We will utilize the SCRUM development method. We will have weekly standup meetings discussing what we have completed so far, what we are currently working on, and what is blocking our current progress. Each meeting will have a SCRUM Master which will rotate each week. We will approach development in iterations, first completing a simple working implementation of our project idea and then adding more features each cycle.
 
 ### Project Tracking Software: Jira - https://www.atlassian.com/software/jira
