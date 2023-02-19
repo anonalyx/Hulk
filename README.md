@@ -63,3 +63,5 @@ This project idea provides a straightforward product that we can use to gain han
 We will utilize the SCRUM development method. We will have weekly standup meetings discussing what we have completed so far, what we are currently working on, and what is blocking our current progress. Each meeting will have a SCRUM Master which will rotate each week. We will approach development in iterations, first completing a simple working implementation of our project idea and then adding more features each cycle.
 
 ### Project Tracking Software: Jira - https://www.atlassian.com/software/jira
+
+
