@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Project Hulk | Calorie Calculator</title>
+  </head>
+  <body>
+    <main>
+      <h1>Project Hulk Calorie Calculator</h1>
+      <form method="post">
+        <label for="calories">How many calories would you like to burn?</label>
+        <br>
+        <input type="text" name="calories">
+        <br>
+        <button type="submit">Submit</button>
+      </form>
+      <br>
+      {% if result %}
+        <div>{{ result[1] }} steps required to burn {{ result[0] }} calories</div>
+      {% endif %}
+    </main>
+  </body>
