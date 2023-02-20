@@ -7,7 +7,6 @@ from sympy import symbols, Eq, solve
 
 # Function to get output
 def calCalc(calories):
-    #goal = getInput()
     distance = target(calories, model)
     return int(distance)
 
