@@ -51,5 +51,6 @@ model = smf.ols(
     data = stats
 ).fit()
 
-stepSim = calCalc()
+calories = getInput()
+stepSim = calCalc(calories)
 print(stepSim, 'steps to burn', sys.argv[1], 'calories')
