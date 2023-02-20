@@ -6,10 +6,10 @@ import statsmodels.formula.api as smf
 from sympy import symbols, Eq, solve
 
 # Function to get output
-def calCalc():
-    goal = getInput()
-    distance = target(goal, model)
-    return round(distance, 2)
+def calCalc(calories):
+    #goal = getInput()
+    distance = target(calories, model)
+    return int(distance)
 
 def target(goal, model):
     beta0, beta1 = model.params
@@ -47,9 +47,9 @@ stats = fit.groupby(['Id'])
 stats = stats.sum(numeric_only = True)
 
 model = smf.ols(
-    formula = 'Calories ~ TotalDistance', 
+    formula = 'Calories ~ TotalSteps', 
     data = stats
 ).fit()
 
 stepSim = calCalc()
-print(stepSim, 'distance to burn', sys.argv[1], 'calories')
+print(stepSim, 'steps to burn', sys.argv[1], 'calories')
