@@ -7,8 +7,12 @@ from sympy import symbols, Eq, solve
 
 # Function to get output
 def calCalc(calories):
-    distance = target(calories, model)
-    return int(distance)
+    try:
+        distance = target(calories, model)
+        return int(distance)
+    
+    except:
+        return 0
 
 def target(goal, model):
     beta0, beta1 = model.params
@@ -50,6 +54,8 @@ model = smf.ols(
     data = stats
 ).fit()
 
+'''
 calories = getInput()
 stepSim = calCalc(calories)
 print(stepSim, 'steps to burn', sys.argv[1], 'calories')
+'''
