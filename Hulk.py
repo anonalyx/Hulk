@@ -30,9 +30,8 @@ def target(goal, model):
         return sol
     
 def getInput():
-    args = sys.argv
-    
     try:
+        args = sys.argv
         goal = eval(args[1])
         
         if goal < 0:
@@ -54,8 +53,6 @@ model = smf.ols(
     data = stats
 ).fit()
 
-'''
 calories = getInput()
 stepSim = calCalc(calories)
-print(stepSim, 'steps to burn', sys.argv[1], 'calories')
-'''
+print(stepSim, 'steps to burn', calories, 'calories')
