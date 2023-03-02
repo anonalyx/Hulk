@@ -2,11 +2,11 @@ Weekly Status Update 1:
 
 This week, we determined role leads for each of the components of our application. 
 
-Backend: Danielle
-Modeling: Minh
-Design: Nate
-Testing: Alex
-Front-end: Adam
+- Backend: Danielle
+- Modeling: Minh
+- Design: Nate
+- Testing: Alex
+- Front-end: Adam
 
 The role lead will be the primary point of contact and responsible for tactical decision-making within their remit. Each role lead began to build out the Jira board
 with some preliminary tasks and items.
