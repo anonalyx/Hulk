@@ -13,7 +13,7 @@ def calCalc(calories):
     
     except:
         return 0
-
+    
 def target(goal, model):
     beta0, beta1 = model.params
     
@@ -43,14 +43,26 @@ def getInput():
     except:
         return 0
     
+def takeSample(data, columns):
+    sample_size = 10000
+    
+    data_sample = data[columns].sample(
+        n = sample_size, replace = True
+    )
+    
+    data_sample = data_sample.groupby(columns[0])
+    data_sample = data_sample.sum()
+
+    return data_sample
+    
 fit = pd.read_csv('Fitabase Data 4.12.16-5.12.16/dailyActivity_merged.csv')
 
-stats = fit.groupby(['Id'])
-stats = stats.sum(numeric_only = True)
+columns = ['Id', 'TotalSteps', 'Calories']
+train_data = takeSample(fit, columns)
 
 model = smf.ols(
     formula = 'Calories ~ TotalSteps', 
-    data = stats
+    data = train_data
 ).fit()
 
 calories = getInput()
