@@ -1,7 +1,11 @@
-#calculator {
-    background-color: #bb6b6b
+#Calculator{
+    margin-top: 50px;
 }
 
- #Button {
-    float:right
-  }
+#output_con {
+    margin-top: 50px;
+}
+
+
+
+
