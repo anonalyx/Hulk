@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for, redirect
-#from Hulk import calCalc
+from calCounter import Cal_Counter
 
 app = Flask(__name__)
 
@@ -13,9 +13,8 @@ def calculator():
         return render_template('calculator.html')
     if request.method == 'POST':
         calories = request.form['calories']
-        steps = calculator(calories) # This will be replaced by calCalc function
+        counter = Cal_Counter()
+        steps = counter.getSteps(calories)
         calcResult = (calories, steps)
         return render_template('calculator.html', result=calcResult)
 
-def calculator(calories):
-    return int(calories) * 2 + 50
