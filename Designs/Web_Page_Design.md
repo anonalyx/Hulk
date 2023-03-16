@@ -90,13 +90,14 @@ Data:
     - Equipment {parameter - equipment}
 
 Link Destinations:
-- Each row of the search result table is a link to the associated exercise detail page. The particular exercise, body part, and equipment are passed as parameters to the excercize_detail url.
+- Each row of the search result table is a link to the associated exercise detail page. The particular exercise, body part, and equipment are passed as parameters to the exercise_detail url.
 - The “New Search” button will simply redirect the browser back to the Search page.
+- Clicking the star sends a post request with exercise, body_part, and equipment parameters to write the exercise into the favorites sql table.
 
 Tests: 
 - The body part and equipment attributes in the search result table will match those passed as parameters by the user from the search page
 - Each exercise row in the search result table must be valid exercises stored in our sql table that match both of the parameters body_part and equipment.
-- When a row is clicked the browser must successfully navigate to the Excercize Detail page.
+- When a row is clicked the browser must successfully navigate to the Exercise Detail page.
 - When the “New Search” button is clicked the browser must successfully redirect to the Search page.
 
 ---
@@ -117,7 +118,9 @@ Data:
 - Equipment: {parameter - equipment}
 - Description: {description value is pulled from the sql table matching exercise, body_part, and equipment attributes}
 
-Link Destinations: None
+Link Destinations: 
+
+When clicked "Add to Favorites" sends a post request with exercise, body_part, and equipment parameters to write the exercise into the favorites sql table.
 
 Tests:
 - Exercise Name, Body Part and Equipment must match the parameters passed from the  previous webpage and be valid values in the related sql table.
