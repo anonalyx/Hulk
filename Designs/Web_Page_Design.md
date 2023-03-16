@@ -13,7 +13,8 @@ Tests:
 ---
 # Page Title: Login Sign In Page
 
-Page Description:
+Description:
+
 ![Alt Text](./images/login_sign_up.jpg)
 
 
@@ -37,6 +38,7 @@ Tests:
 # Page Title: Home
 
 Description:
+
 ![Alt Text](./images/home.jpg)
 
 Parameters:None
@@ -56,8 +58,10 @@ Tests:
 
 # Page Title: Search
 
-Page Description:
+Description:
+
 ![Alt Text](./images/search.jpg)
+
 Parameters: None
 
 Data: 
@@ -76,7 +80,8 @@ Tests:
 ---
 # Page Title: Search Results
 
-Page description:
+Description:
+
 ![Alt Text](./images/search_results.jpg)
 
 Parameters:
@@ -105,6 +110,7 @@ Tests:
 # Page Title: Exercise Details
 
 Description:
+
 ![Alt Text](./images/exercise_details.jpg)
 
 Parameters:
@@ -130,7 +136,8 @@ Tests:
 
 # Page Title : User Page
 
-Page description : 
+Description : 
+
 ![Alt Text](./images/user_page.jpg)
 
 Parameters: None
