@@ -1,0 +1,28 @@
+#brand {
+    font-weight: 700;
+}
+
+.navbar-nav {
+    margin-left: 0px;
+}
+.nav-item .nav-link {
+    color: rgb(12, 177, 12) !important;
+    font-weight: 500;
+    font-size: 13pt;
+}
+
+.navbar {
+    border-bottom: 2px solid black;
+  }
+
+#brand-image {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+@media (max-width: 991.98px) {
+#brand {
+    flex-grow: 1;
+    }
+}

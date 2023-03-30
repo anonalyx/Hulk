@@ -13,8 +13,7 @@ Tests:
 ---
 # Page Title: Login Sign In Page
 
-Description:
-
+Page Description:
 ![Alt Text](./images/login_sign_up.jpg)
 
 
@@ -38,7 +37,6 @@ Tests:
 # Page Title: Home
 
 Description:
-
 ![Alt Text](./images/home.jpg)
 
 Parameters:None
@@ -58,10 +56,8 @@ Tests:
 
 # Page Title: Search
 
-Description:
-
+Page Description:
 ![Alt Text](./images/search.jpg)
-
 Parameters: None
 
 Data: 
@@ -80,8 +76,7 @@ Tests:
 ---
 # Page Title: Search Results
 
-Description:
-
+Page description:
 ![Alt Text](./images/search_results.jpg)
 
 Parameters:
@@ -110,7 +105,6 @@ Tests:
 # Page Title: Exercise Details
 
 Description:
-
 ![Alt Text](./images/exercise_details.jpg)
 
 Parameters:
@@ -136,8 +130,7 @@ Tests:
 
 # Page Title : User Page
 
-Description : 
-
+Page description : 
 ![Alt Text](./images/user_page.jpg)
 
 Parameters: None
@@ -162,7 +155,6 @@ Tests:
 - The correct email and username of the currently signed in user must match the username and email rendered on the page.
 - When a user clicks the x on a row of the favorite exercise table, that row should be deleted from the table.
 - The SessionID should match a Username in the sql table.
-
 
 
 
