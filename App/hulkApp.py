@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for, redirect, make_response, jsonify
-from calCounter import cal_counter
+from calCounter import Cal_Counter
 
 app = Flask(__name__)
 
