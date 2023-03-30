@@ -22,7 +22,7 @@ def calculator():
 def calculate():
     req = request.get_json()
 
-    counter = cal_counter()
+    counter = Cal_Counter()
     steps = counter.getSteps(int(req['calories']))
 
     response = make_response(jsonify({'steps': steps}), 200)
