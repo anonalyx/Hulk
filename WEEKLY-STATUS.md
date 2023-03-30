@@ -23,3 +23,22 @@ Going forward, our focus this next week is on:
 
 
 <img width="1157" alt="image" src="https://user-images.githubusercontent.com/114958231/222359373-e3e78e43-f908-42e1-86da-d2b56e382af5.png">
+
+
+Weekly Status Update 2:
+
+- reformatted calorie counter home page
+- made progress on fitting the model to larger dataset
+- database designs
+- set up pull request flow
+- researching deployment options
+
+Weekly Status Update 3:
+- Complete review of web page designs and front-end
+
+Weekly Status Update 4:
+- Work on the base template for all of the html pages (adam) 
+- Start work on building individual pages
+- Build Unit Test suite
+- Work on individual unit tests
+- Get SQL database online
