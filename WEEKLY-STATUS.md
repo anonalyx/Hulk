@@ -42,3 +42,10 @@ Weekly Status Update 4:
 - Build Unit Test suite
 - Work on individual unit tests
 - Get SQL database online
+
+Weekly Status Update 5:
+- Automated build,deployment, and hosting of the application completed
+- SQL designs completed
+- Unittesting progress
+- HTML template for home page complete
+- SQL testing in progress
