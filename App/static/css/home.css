@@ -1,0 +1,30 @@
+#welcome {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+
+    font-weight: 700;
+    font-size: 20px;
+}
+
+#home-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+#home-links .btn {
+    width: 400px;
+    border: black solid 1px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    color:rgb(12, 177, 12);
+}
+
+#home-links .btn:hover {
+    background-color:rgb(12, 177, 12);
+    color: black;
+    transition: box-shadow 0.3s ease-in-out;
+  }
