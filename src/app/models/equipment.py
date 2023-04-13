@@ -1,0 +1,3 @@
+'''CREATE TABLE IF NOT EXISTS equipment (
+equipment_id INT GENERATED ALWAYS AS IDENTITY,
+equipment_name VARCHAR(30) UNIQUE NOT NULL);'''
