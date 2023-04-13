@@ -28,3 +28,44 @@ def calculate():
     response = make_response(jsonify({'steps': steps}), 200)
 
     return response
+'''
+ROUTES:
+    Pages
+    - Login
+    - Landing Page
+    - Exercise Search
+    - Exercise Result
+    - Profile
+
+'''
+#TODO
+def get_page_exercise_details():
+    pass
+
+#TODO
+def get_page_exercise_search():
+    pass
+
+#TODO
+def register_user():
+    pass
+
+#TODO
+def get_page_login():
+    pass
+
+#TODO
+def authenticate():
+    pass
+
+#TODO
+def add_favorite_exercise():
+    pass
+
+#TODO
+def remove_favorite_exercise():
+    pass
+
+#TODO
+def get_user_favorites():
+    pass
