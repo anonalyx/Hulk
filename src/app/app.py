@@ -1,15 +1,15 @@
 from flask import Flask, render_template, request, url_for, redirect, make_response, jsonify
-from calCounter import Cal_Counter
+from .calCounter import Cal_Counter
 
 app = Flask(__name__)
 
-
-#commenting this out. Writing index route.
+# commenting this out. Writing index route.
 '''
 @app.route('/')
 def index():
     return redirect(url_for('calculator'))  # Temporarily redirecting to calorie calculator
 '''
+
 
 @app.route('/calculator', methods=['GET', 'POST'])
 def calculator():
@@ -53,26 +53,32 @@ def get_page_exercise_details():
 
 
 # TODO
+@app.route('/search', methods=['GET'])
 def get_page_exercise_search():
-    pass
+    return render_template('search.html')
 
 
 # TODO
+@app.route('/signup', methods=['POST'])
 def register_user():
-    pass
+    return redirect(url_for('home'))
 
 
 # TODO
-@app.route('/', methods={'GET'})
+@app.route('/', methods=['GET'])
 def get_page_login():
     return render_template('login.html')
 
 
 # TODO
-@app.route('/auth')
+@app.route('/auth', methods=['POST'])
 def authenticate():
-    pass
+    return redirect(url_for('home'))
 
+
+@app.route('/home', methods=['GET'])
+def home():
+    return render_template('home.html')
 
 # TODO
 def add_favorite_exercise():

@@ -2,6 +2,8 @@
 <html>
 <head>
     <script src="../static/js/calc.js"></script>
+    <script src="../static/js/login.js"></script>
+    <script src="../static/js/main.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../static/css/base_temp.css">
     <link rel="stylesheet" type="text/css" href="../static/css/login.css">
@@ -13,15 +15,15 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Search </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Calculator</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Profile</a>
-            </li>
+              <li class="nav-item">
+                  <a class="nav-link" id="nav_search_button">Search </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" id="nav_calcalc_button">Calculator</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" id="nav_profile_button">Profile</a>
+              </li>
           </ul>
         </div>
     </nav>
@@ -31,7 +33,7 @@
         Log in or Sign Up
     </div>
 
-    <form class='form-inline' id="user-form">
+    <form class='form-inline' id="user-form" >
         <div class = "form-group" id="email">
             <label for="email" id="email-label">Email address:</label>
             <input type="email" class="form-control" id="email-input" aria-describedby="emailHelp" placeholder="Enter email">
@@ -42,7 +44,7 @@
         </div>
         <div class="form-group" id="buttons">
             <div class = "col">
-                <button type="submit" class="btn" id="login-button">Log In</button>
+                    <button type="submit" class="btn" id="login-button">Log In</button>
             </div>
             <div class = "col">
                 <button type="submit" class="btn" id="signup-button">Sign Up</button>
