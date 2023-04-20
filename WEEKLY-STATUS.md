@@ -57,4 +57,9 @@ Weekly Status Update 6:
 - built out additional templates for html pages
 - established testing program using unittest
 - finalized database design
-- 
+
+Weekly Status Update 7:
+- Completed routing
+- Added additional templates for search
+- Set up databases and added to render
+- refactored js and html
