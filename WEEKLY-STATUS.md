@@ -49,3 +49,12 @@ Weekly Status Update 5:
 - Unittesting progress
 - HTML template for home page complete
 - SQL testing in progress
+
+Weekly Status Update 6:
+- Refactored repository for final implementation push
+- implemented core routing
+- defined roles and responsibilites to close out project
+- built out additional templates for html pages
+- established testing program using unittest
+- finalized database design
+- 
