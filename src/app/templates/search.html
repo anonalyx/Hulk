@@ -1,3 +1,5 @@
+{% from "macros/table_macros.html" import render_search_table %}
+
 {% extends "navbar.html" %}
 {% block title %}Hulk - Search{% endblock %}
 {% block head %}
@@ -5,70 +7,26 @@
     <link rel="stylesheet" type="text/css" href="../static/css/search.css">
 {% endblock %}
 {% block content %}
+
     <div id="prompt">
         Search for Excercises
     </div>
-
     <div class="container table-container">
         <div class="row justify-content-center align-items-center">
+
             <div class="col d-flex justify-content-center">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col" id = "body-table-title">Body Part </th>
-                        </tr>
-                    </thead>
-                    <tbody id="body-table-rows">
-                        <!--<tr data-selected="false">
-                            <th scope="row" >Biceps</th>
-                        </tr>
-                        <tr data-selected="false">
-                            <th scope="row">Abdominals</th>
-                        </tr>
-                        <tr data-selected="false">
-                            <th scope="row">Shoulders</th>
-                        </tr>
-                        <tr data-selected="false">
-                            <th scope="row">Back</th>
-                        </tr>
-                        <tr data-selected="false">
-                            <th scope="row">Quads</th>
-                        </tr>-->
-                    </tbody>
-                </table>
+                {{ render_search_table(data["body_data"], "Body Part", "body-table-rows") }}
             </div>
 
             <div class="col d-flex justify-content-center">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col" id = equipment-table-title>Equipment</th>
-                    </tr>
-                    </thead>
-                        <tbody id="equipment-table-rows">
-                            <!--<tr data-selected="false">
-                                <th scope="row">Dumbells</th>
-                            </tr>
-                            <tr data-selected="false">
-                                <th scope="row">Kettle bell</th>
-                            </tr>
-                            <tr data-selected="false">
-                                <th scope="row">Barbell</th>
-                            </tr>
-                            <tr data-selected="false">
-                                <th scope="row">Excercise Ball</th>
-                            </tr>
-                            <tr dataselected="false">
-                                <th scope="row">Jump rope</th>
-                            </tr>-->
-                        </tbody>
-                </table>
+                {{ render_search_table(data["equipment_data"], "Equipment", "equipment-table-rows") }}
             </div>
+            
         </div>
     </div>
 
     <div class="button-container">
-        <button type="submit" class="btn" id="search-button" disabled="True">Submit</button>
+        <button type="submit" class="btn" id="search-button" disabled="True">Search</button>
     </div>
 
 {% endblock %}
