@@ -9,9 +9,12 @@ test_tables() {
 }
 
 current_dir=$(pwd)
+script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
+cd "$script_dir"
 fitbase
-cd "$current_dir"
 
+cd "$script_dir"
 test_tables
+
 cd "$current_dir"
