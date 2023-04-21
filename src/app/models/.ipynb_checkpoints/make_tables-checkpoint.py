@@ -15,11 +15,9 @@ def create(table):
     if table[-4:] != '.txt':
         table += '.txt'
 
-    sql = open(table, "r")
-    command = sql.read()
-    
-    sql.close()
-    c.execute(command)
+    command = open(table, "r")
+    c.execute(command.read())
+    command.close()
 
 def insert(value, table):
     command = "INSERT INTO " + table + " VALUES ("

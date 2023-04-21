@@ -1,5 +1,5 @@
 import unittest
-from Hulk import *
+import ..src.app.fitbase_data.Hulk
 
 class HulkTest(unittest.TestCase):
 

@@ -1,4 +1,4 @@
-import unittest
+import unittest, sys, os
 from Hulk import *
 
 class HulkTest(unittest.TestCase):

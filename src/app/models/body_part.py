@@ -1,4 +1,0 @@
-'''CREATE TABLE IF NOT EXISTS body_part (
-part_id INT GENERATED ALWAYS AS IDENTITY,
-part_name VARCHAR(30) UNIQUE NOT NULL,
-calories INT);'''

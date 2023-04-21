@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS exercise (
+exercise_id INT PRIMARY KEY,
+exercise_name VARCHAR(30) UNIQUE NOT NULL,
+exercise_description VARCHAR(1000),
+exercise_body_part VARCHAR(30),
+exercise_equipment VARCHAR(30),
+CONSTRAINT fk_body_part FOREIGN KEY(exercise_body_part) REFERENCES body_part(part_name),
+CONSTRAINT fk_equipment FOREIGN KEY(exercise_equipment) REFERENCES equipment(equipment_name));
