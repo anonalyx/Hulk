@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, url_for, redirect, make_response, jsonify
-from .calCounter import Cal_Counter
+from calCounter import Cal_Counter
+import os
 
 app = Flask(__name__)
 
@@ -52,11 +53,54 @@ def get_page_exercise_details():
     pass
 
 
-# TODO
+
 @app.route('/search', methods=['GET'])
 def get_page_exercise_search():
-    return render_template('search.html')
+    
+    #body_data =  get_columns("body_part", ["id", "name"])
+    #equip_data = get_columns("equipment", ["id", "name"])
 
+    # TODO: Remove hardcoded data when get_columns is implemented
+    body_data = [
+        {"id": 0, "name": "Biceps"},
+        {"id": 1, "name": "Abdominals"},
+        {"id": 2, "name": "Shoulders"},
+        {"id": 3, "name": "Back"},
+        {"id": 4, "name": "Quads"}
+    ]
+
+    equipment_data = [
+        {"id": 0, "name": "None"},
+        {"id": 1, "name": "Kettle_bell"},
+        {"id": 2, "name": "Barbell"},
+        {"id": 3, "name": "Exercise_Ball"},
+        {"id": 4, "name": "Dumbbell"}
+    ]
+
+    data = {"body_data": body_data, "equipment_data": equipment_data}
+
+    return render_template('search.html', data=data)
+
+
+@app.route('/search_results/<body_part>/<equipment>', methods=['GET'])
+def get_page_exercise_search_results(body_part, equipment):
+
+    #data = exercise_search('body_part', 'equipment')
+
+    # TODO: Remove hardcoded data when exercise_search is implemented
+    data = [{'exercise': 'Push_Up', 'body_part': body_part, 'equipment': equipment},
+            {'exercise': 'Bicep_Curl', 'body_part': body_part, 'equipment': equipment},
+            {'exercise': 'Squat', 'body_part': body_part, 'equipment': equipment},
+            {'exercise': 'Lunge', 'body_part': body_part, 'equipment': equipment}]
+
+    headers = {"exercise": "Exercise",
+               "body_part": "Body Part",
+               "equipment": "Equipment"}
+
+    svg_path = os.path.join(app.static_folder, 'icons', 'favorites_icon.svg')
+    svg_content = read_svg_content(svg_path)
+
+    return render_template('search_results.html', data=data, headers=headers, svg_content=svg_content)
 
 # TODO
 @app.route('/signup', methods=['POST'])
@@ -93,3 +137,26 @@ def remove_favorite_exercise():
 # TODO
 def get_user_favorites():
     pass
+
+# TODO
+def get_columns(table, columns):
+    """
+    Description: Get specified columns from a table
+
+    Parameters:
+        table: String - table name
+        columns: List of Strings - column names
+
+    Returns: list of dictionaries - [{column[0]: value, ... column[n]: value}, ... {column[0]: value, ... column[n]: value}]
+    see body_data and equipment_data in get_page_exercise_search() for example
+    """
+    pass
+
+def read_svg_content(filename):
+    with open(filename, 'r') as f:
+        content = f.read()
+    return content
+
+
+
+
