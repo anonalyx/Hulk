@@ -8,10 +8,10 @@
     </div>
 
     <div id="home-links">
-      <button type="button" class="btn" id="home_search_button">Search for Excercises</button>
-      <button type="button" class="btn" id="home_calcalc_button">Calorie Calculator</button>
-      <button type="button" class="btn" id="home_profile_button" >User Page</button>
-      <button type="button" class="btn" id="home_login_signup_button">Log In or SIgn Up</button>
+      <a href= {{ url_for('get_page_exercise_search') }} search class="btn" id="home_search_button">Search for Excercises</a>
+      <a href= {{ url_for('calculator') }}  class="btn" id="home_calcalc_button">Calorie Calculator</a>
+      <a href= {{ url_for('home') }}  class="btn" id="home_profile_button" >User Page</a>
+      <a href= {{ url_for('get_page_login') }}  class="btn" id="home_login_button">Log In or Sign Up</a>
     </div>
 
 {% endblock %}
