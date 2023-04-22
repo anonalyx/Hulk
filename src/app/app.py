@@ -57,25 +57,12 @@ def get_page_exercise_details():
 @app.route('/search', methods=['GET'])
 def get_page_exercise_search():
     
-    #body_data =  get_columns("body_part", ["id", "name"])
-    #equip_data = get_columns("equipment", ["id", "name"])
+    #body_data =  get_column("body_part", "name")
+    #equip_data = get_column("equipment", "name"")
 
-    # TODO: Remove hardcoded data when get_columns is implemented
-    body_data = [
-        {"id": 0, "name": "Biceps"},
-        {"id": 1, "name": "Abdominals"},
-        {"id": 2, "name": "Shoulders"},
-        {"id": 3, "name": "Back"},
-        {"id": 4, "name": "Quads"}
-    ]
-
-    equipment_data = [
-        {"id": 0, "name": "None"},
-        {"id": 1, "name": "Kettle_bell"},
-        {"id": 2, "name": "Barbell"},
-        {"id": 3, "name": "Exercise_Ball"},
-        {"id": 4, "name": "Dumbbell"}
-    ]
+    # TODO: Remove hardcoded data when get_column is implemented
+    body_data = ["Biceps","Abdominals","Shoulders", "Back", "Quads"]
+    equipment_data = ["None", "Kettle_bell", "Barbell", "Exercise_Ball", "Dumbbell"]
 
     data = {"body_data": body_data, "equipment_data": equipment_data}
 
@@ -139,16 +126,15 @@ def get_user_favorites():
     pass
 
 # TODO
-def get_columns(table, columns):
+def get_column(table, column):
     """
     Description: Get specified columns from a table
 
     Parameters:
         table: String - table name
-        columns: List of Strings - column names
+        columns: String - column name
 
-    Returns: list of dictionaries - [{column[0]: value, ... column[n]: value}, ... {column[0]: value, ... column[n]: value}]
-    see body_data and equipment_data in get_page_exercise_search() for example
+    Returns: list of strings - column values
     """
     pass
 

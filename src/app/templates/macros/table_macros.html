@@ -10,8 +10,8 @@
         <tbody id = {{ rows_id }} >
             <tr>
                 {% for cell in data %} 
-                    <tr data-selected="false" data-selection={{ cell["name"] }}>
-                        <th scope="row"> {{ helper.underscore_to_space(cell["name"]) }} </th>
+                    <tr data-selected="false" data-selection={{ cell }}>
+                        <th scope="row"> {{ helper.underscore_to_space(cell) }} </th>
                     </tr>
                 {% endfor %}
         </tbody>
