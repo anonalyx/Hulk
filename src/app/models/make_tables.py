@@ -138,5 +138,5 @@ for table, value_list in insertions.items():
         
     print("\n" + table)
     print_table(table)
-
+    
 drop_all()
