@@ -1,3 +1,4 @@
+/*
 document.addEventListener("DOMContentLoaded", function() {
     fetch('navbar.html')
       .then(response => response.text())
@@ -9,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
         console.error('Error loading navbar:', error);
       });
 });
+*/
 
 function addNavbarEventListeners() {
     const brand_image = document.getElementById('brand-image');

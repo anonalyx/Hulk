@@ -1,0 +1,45 @@
+{% import "macros/helper_macros.html" as helper %}
+
+{% macro render_search_table(data, header, rows_id) %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col" > {{ header }} </th>
+            </tr>
+        </thead>
+        <tbody id = {{ rows_id }} >
+            <tr>
+                {% for cell in data %} 
+                    <tr data-selected="false" data-selection={{ cell }}>
+                        <th scope="row"> {{ helper.underscore_to_space(cell) }} </th>
+                    </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+{% endmacro %}
+
+{% macro render_3_col_table(data, headers, svg_content, svg_file) %}
+    <table class="table three-col-table">
+        <thead>
+            <tr class = "three-col-table-header">
+                <th scope="col" class="icon-column" id="search-table-title-1"></th>
+                <th scope="col" id="search-table-title-2">{{ headers['exercise'] }} </th>
+                <th scope="col" id="search-table-title-3">{{ headers['body_part'] }}</th>
+                <th scope="col" id="search-table-title-4">{{ headers['equipment'] }} </th>
+            </tr>
+        </thead>
+        <tbody id='search-results-table-rows'>
+                {% for cell in data %}
+                    <tr data-selection={{ cell["exercise"] }}>
+                        
+                        <th scope="row" id='favorites-button' data-selected='false' >
+                            {{ svg_content|safe }}
+                        </th>
+                        <th scope="row"> {{ helper.underscore_to_space(cell["exercise"]) }} </th>
+                        <th scope="row"> {{ helper.underscore_to_space(cell["body_part"]) }} </th>
+                        <th scope="row"> {{ helper.underscore_to_space(cell["equipment"]) }} </th>
+                    </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+{% endmacro %}
