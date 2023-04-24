@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hulk Smash</title>
+</head>
+    
+<body>
+    <h1>Required Routes</h1>
+    <ul>
+        <li><a href = {{ url_for( 'index' ) }}>
+            Index
+        </a></li>
+        
+        <li><a href = {{ url_for( 'testing' ) }}>
+            List Tables
+        </a></li>
+        
+        <li><a href = {{ url_for( 'creating' ) }}>
+            Create
+        </a></li>
+        
+        <li><a href = {{ url_for( 'inserting' ) }}>
+            Insert
+        </a></li>
+        
+        <li><a href = {{ url_for( 'selecting' ) }}>
+            Select
+        </a></li>
+        
+        <li><a href = {{ url_for( 'dropping' ) }}>
+            Drop
+        </a></li>
+    </ul>
+    
+    
+    <h1>Exercise Details</h1>
+    <ul>
+        <li><a href = {{ url_for( 'get_page_exercise_details', exercise_id = 0 ) }}>
+            Bicep Curl Details
+        </a></li>
+        
+        <li><a href = {{ url_for( 'get_page_exercise_details', exercise_id = 1 ) }}>
+            Rows Details
+        </a></li>
+        
+        <li><a href = {{ url_for( 'get_page_exercise_details', exercise_id = 2 ) }}>
+            Squats Details
+        </a></li>
+        
+        <li><a href = {{ url_for( 'get_page_exercise_details', exercise_id = 3 ) }}>
+            Sit-Ups Details
+        </a></li>
+        
+        <li><a href = {{ url_for( 'get_page_exercise_details', exercise_id = 4 ) }}>
+            Running Details
+        </a></li>
+    </ul>
+    
+    
+    <h1>Exercise Search</h1>
+    <ul>
+        <li><a href = {{ url_for( 'test_page_exercise_search', test_part = 'Test', test_equipment = 'Test' ) }}>
+            Search Without User
+        </a></li>
+        
+        <li><a href = {{ url_for( 'test_page_exercise_search', test_part = 'Test', test_equipment = 'Test', user_id = 23 ) }}>
+            Search With User
+        </a></li>
+        
+        <li><a href = {{ url_for( 'test_page_exercise_search', test_part = 'Test', test_equipment = 'Empty', user_id = 23 ) }}>
+            Search Without Exercise
+        </a></li>
+        
+        <li><a href = {{ url_for( 'test_page_exercise_search', test_part = 'Empty', test_equipment = 'Empty' ) }}>
+            Search Without Body Parts
+        </a></li>
+    </ul>
+    
+    
+    <h1>Register</h1>
+    <ul>
+        <li><a href = {{ url_for( 'register_user', username = 'Kevin Durant', email = 'Durantula@nba.com' ) }}>
+            Register Kevin Durant
+        </a></li>
+        
+        <li><a href = {{ url_for( 'register_user', username = 'Kevin Durant', email = 'Burner@account.gov' ) }}>
+            Durant's Burner Account
+        </a></li>
+    </ul>
+    
+    
+    <h1>Login</h1>
+    <ul>
+        <li><a href = {{ url_for( 'get_page_login', username = 'LeBron', email = 'KingJames@nba.com' ) }}>
+            Login LeBron
+        </a></li>
+        
+        <li><a href = {{ url_for( 'get_page_login', username = 'Kobe', email = 'BeanBryant@nba.com' ) }}>
+            Login Kobe
+        </a></li>
+        
+        <li><a href = {{ url_for( 'get_page_login', username = 'Tom Brady', email = 'DeflateGate@nfl.com' ) }}>
+            Login Brady
+        </a></li>
+        
+        <li><a href = {{ url_for( 'get_page_login', username = 'Nobody', email = 'fake@news.com' ) }}>
+            Invalid Login
+        </a></li>
+    </ul>
+    
+    
+    <h1>Authenticate</h1>
+    <ul>
+        <li><a href = {{ url_for( 'authenticate', username = 'LeBron', email = 'KingJames@nba.com' ) }}>
+            Authenticate LeBron
+        </a></li>
+        
+        <li><a href = {{ url_for( 'authenticate', username = 'Kobe', email = 'BeanBryant@nba.com' ) }}>
+            Authenticate Kobe
+        </a></li>
+        
+        <li><a href = {{ url_for( 'authenticate', username = 'Tom Brady', email = 'DeflateGate@nfl.com' ) }}>
+            Authenticate Brady
+        </a></li>
+        
+        <li><a href = {{ url_for( 'authenticate', username = 'Nobody', email = 'fake@news.com' ) }}>
+            Invalid Authentication
+        </a></li>
+    </ul>
+    
+    
+    <h1>Add Favorite</h1>
+    <ul>
+        <li><a href = {{ url_for( 'add_favorite_exercise', user_id = 23, exercise_id = 4 ) }}>
+            Add Favorite: LeBron Running
+        </a></li>
+        
+        <li><a href = {{ url_for( 'add_favorite_exercise', user_id = 23, exercise_id = 0 ) }}>
+            Favorite Already Exists
+        </a></li>
+        
+        <li><a href = {{ url_for( 'add_favorite_exercise', user_id = -3, exercise_id = 0 ) }}>
+            User Doesn't Exist
+        </a></li>
+        
+        <li><a href = {{ url_for( 'add_favorite_exercise', user_id = 23, exercise_id = -1 ) }}>
+            Exercise Doesn't Exist
+        </a></li>
+    </ul>
+    
+    
+    <h1>Remove Favorite</h1>
+    <ul>
+        <li><a href = {{ url_for( 'remove_favorite_exercise', user_id = 23, exercise_id = 0 ) }}>
+            Remove Favorite: LeBron Bicep Curl
+        </a></li>
+        
+        <li><a href = {{ url_for( 'remove_favorite_exercise', user_id = 23, exercise_id = 2 ) }}>
+            Favorite Doesn't Exist
+        </a></li>
+        
+        <li><a href = {{ url_for( 'remove_favorite_exercise', user_id = -3, exercise_id = 0 ) }}>
+            User Doesn't Exist
+        </a></li>
+        
+        <li><a href = {{ url_for( 'remove_favorite_exercise', user_id = 23, exercise_id = -1 ) }}>
+            Exercise Doesn't Exist
+        </a></li>
+    </ul>
+    
+    
+    <h1>User Favorites</h1>
+    <ul>
+        <li><a href = {{ url_for( 'get_user_favorites', user_id = 23 ) }}>
+            LeBron's Favorites
+        </a></li>
+        
+        <li><a href = {{ url_for( 'get_user_favorites', user_id = 24 ) }}>
+            Kobe's Favorites
+        </a></li>
+        
+        <li><a href = {{ url_for( 'get_user_favorites', user_id = 12 ) }}>
+            Brady's Favorites
+        </a></li>
+    </ul>
+</body>
+</html>

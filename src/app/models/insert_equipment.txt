@@ -1,0 +1,5 @@
+INSERT INTO equipment Values
+(0, 'None'),
+(1, 'Dumbells'),
+(2, 'Single Dumbell'),
+(3, 'Body Weight');
