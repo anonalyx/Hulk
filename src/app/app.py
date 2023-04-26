@@ -21,7 +21,7 @@ def testing():
     
     return tables
 
-    
+## connects to PostgreSQL, executes SQL commands from text files, and returns a string with their execution status        
 @app.route('/db_create')
 def creating():
     conn = psycopg2.connect("postgres://hulk_user:sJ7uTRAXdhTsJQGOLD9Yq0uhsVBchdAE@dpg-cgrkvt1mbg5e4kh44l70-a.oregon-postgres.render.com/hulk")
