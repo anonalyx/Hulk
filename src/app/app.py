@@ -51,7 +51,7 @@ def creating():
     conn.close()
     return response_string
 
-
+## executes SQL INSERT commands from text files for a set of tables, and returns a string with their execution status
 @app.route('/db_insert')
 def inserting():
     conn = psycopg2.connect("postgres://hulk_user:sJ7uTRAXdhTsJQGOLD9Yq0uhsVBchdAE@dpg-cgrkvt1mbg5e4kh44l70-a.oregon-postgres.render.com/hulk")
