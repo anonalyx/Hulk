@@ -335,7 +335,7 @@ def authenticate(username, email):
     login = get_page_login(username, email)
     return [login.isdigit()]
 
-
+##  adds a new exercise to the user's favorite list in a PostgreSQL database.
 @app.route('/add_favorite/<user_id>/<exercise_id>')
 def add_favorite_exercise(user_id, exercise_id):
     conn = psycopg2.connect("postgres://hulk_user:sJ7uTRAXdhTsJQGOLD9Yq0uhsVBchdAE@dpg-cgrkvt1mbg5e4kh44l70-a.oregon-postgres.render.com/hulk")
