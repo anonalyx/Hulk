@@ -241,7 +241,7 @@ def get_page_exercise_search(part_name, equipment_name, user_id = None):
     conn.close()
     return search_results
 
-
+##  accepts three URL parameters, sets search criteria based on two of them, and calls get_page_exercise_search with the criteria and the third parameter as an optional user ID.
 @app.route('/exercise_details/<test_part>/<test_equipment>')
 @app.route('/exercise_details/<test_part>/<test_equipment>/<user_id>')
 def test_page_exercise_search(test_part, test_equipment, user_id = None):
