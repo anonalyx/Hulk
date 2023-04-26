@@ -81,7 +81,7 @@ def inserting():
     conn.close()
     return response_string
 
-
+## retrieves and formats all records for each table, and returns an HTML string containing the tables and records
 @app.route('/db_select')
 def selecting():
     conn = psycopg2.connect("postgres://hulk_user:sJ7uTRAXdhTsJQGOLD9Yq0uhsVBchdAE@dpg-cgrkvt1mbg5e4kh44l70-a.oregon-postgres.render.com/hulk")
