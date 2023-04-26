@@ -329,7 +329,7 @@ def get_page_login(username, email):
     except:
         return "Login Failed: User Not Found"
 
-    
+## returns whether the given username and email combination exists in the database as a user, by calling another function and checking if the returned user ID is a digit    
 @app.route('/authenticate/<username>/<email>')
 def authenticate(username, email):
     login = get_page_login(username, email)
