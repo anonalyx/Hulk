@@ -307,7 +307,7 @@ def register_user(username, email):
         conn.close()
         return "Registration Failed"
 
-    
+ ## log in a user by querying the account table for a matching username and email, and returns the user ID if found, or a "Login Failed" message if not    
 @app.route('/login/<username>/<email>')
 def get_page_login(username, email):
     conn = psycopg2.connect("postgres://hulk_user:sJ7uTRAXdhTsJQGOLD9Yq0uhsVBchdAE@dpg-cgrkvt1mbg5e4kh44l70-a.oregon-postgres.render.com/hulk")
