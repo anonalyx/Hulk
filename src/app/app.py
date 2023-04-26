@@ -169,7 +169,7 @@ def get_page_exercise_details(exercise_id):
     conn.close()
     return details
 
-
+##  retrieves exercises by body part and equipment criteria, and adds a "favorite" flag for the specified user ID.
 def get_page_exercise_search(part_name, equipment_name, user_id = None):
     if len(part_name) == 0:
         return []
