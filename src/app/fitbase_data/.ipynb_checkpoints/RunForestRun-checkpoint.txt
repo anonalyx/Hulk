@@ -1,0 +1,3 @@
+Intercept     458145.625387
+TotalSteps         0.103168
+dtype: float64
