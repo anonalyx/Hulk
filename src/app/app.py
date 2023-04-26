@@ -468,7 +468,7 @@ def remove_favorite_exercise(user_id, exercise_id):
         conn.close()
         return "Favorite Removal Failed"
 
-
+## gets the list of favorite exercises for a given user, retrieves details about the exercises from the database, and returns them as a list of dictionaries
 @app.route('/user_favorites/<user_id>')
 def get_user_favorites(user_id):
     conn = psycopg2.connect("postgres://hulk_user:sJ7uTRAXdhTsJQGOLD9Yq0uhsVBchdAE@dpg-cgrkvt1mbg5e4kh44l70-a.oregon-postgres.render.com/hulk")
