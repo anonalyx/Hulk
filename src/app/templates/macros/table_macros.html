@@ -1,5 +1,4 @@
 {% import "macros/helper_macros.html" as helper %}
-
 {% macro render_search_table(data, header, rows_id) %}
     <table class="table">
         <thead>
@@ -9,7 +8,7 @@
         </thead>
         <tbody id = {{ rows_id }} >
             <tr>
-                {% for cell in data %} 
+                {% for cell in data %}
                     <tr data-selected="false" data-selection={{ cell }}>
                         <th scope="row"> {{ helper.underscore_to_space(cell) }} </th>
                     </tr>
@@ -17,9 +16,7 @@
         </tbody>
     </table>
 {% endmacro %}
-
 {% macro render_3_col_table(data, headers, buttons_macro) %}
-
     <table class="table three-col-table">
         <thead>
             <tr class = "three-col-table-header">
@@ -32,17 +29,7 @@
         <tbody id='search-results-table-rows'>
                 {% for cell in data %}
                     <tr data-selection={{ cell["exercise"] }}>
-                        
-<<<<<<< HEAD
-                        <!--<th scope="row" id='favorites-button' data-selected='false' >
-                            {{ svg_content|safe }}
-                        </th>-->
                         {{ buttons_macro() }}
-=======
-                        <th scope="row" id='favorites-button' data-selected='false' >
-                            {{ svg_content|safe }}
-                        </th>
->>>>>>> origin/main
                         <th scope="row"> {{ helper.underscore_to_space(cell["exercise"]) }} </th>
                         <th scope="row"> {{ helper.underscore_to_space(cell["body_part"]) }} </th>
                         <th scope="row"> {{ helper.underscore_to_space(cell["equipment"]) }} </th>
@@ -50,17 +37,14 @@
                 {% endfor %}
         </tbody>
     </table>
-<<<<<<< HEAD
 {% endmacro %}
-
 {% macro favorites_button() %}
     <th scope="row" id='favorites-button' data-selected='false' >
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="favorites-icon" viewBox="0 0 16 16">
             <path stroke='black' d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
         </svg>
     </th>
-{% endmacro%}
-
+{% endmacro %}
 {% macro delete_button() %}
     <th scope="row" id='delete-button'>
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" class="delete-icon" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
@@ -68,7 +52,4 @@
             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
         </svg>
     </th>
-{% endmacro%}
-=======
 {% endmacro %}
->>>>>>> origin/main
