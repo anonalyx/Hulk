@@ -1,7 +1,18 @@
+<<<<<<< HEAD
+from flask import Flask, render_template, request, url_for, redirect, make_response, jsonify
+from calCounter import Cal_Counter
+import os
+
+app = Flask(__name__)
+
+# commenting this out. Writing index route.``
+'''
+=======
 import psycopg2
 from flask import Flask, render_template
 app = Flask(__name__)
 
+>>>>>>> origin/main
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -81,6 +92,17 @@ def inserting():
     return response_string
 
 
+<<<<<<< HEAD
+'''
+ROUTES:
+    Pages
+    - Login
+    - Landing Page
+    - Exercise Search
+    - Exercise Search Results
+    - Exercise Details
+    - Profile
+=======
 @app.route('/db_select')
 def selecting():
     conn = psycopg2.connect("postgres://hulk_user:sJ7uTRAXdhTsJQGOLD9Yq0uhsVBchdAE@dpg-cgrkvt1mbg5e4kh44l70-a.oregon-postgres.render.com/hulk")
@@ -96,6 +118,7 @@ def selecting():
         
         response_string += table
         response_string += "<table>"
+>>>>>>> origin/main
 
         for player in records:
             response_string += "<tr>"
@@ -111,6 +134,66 @@ def selecting():
     return response_string
 
 
+<<<<<<< HEAD
+@app.route('/exercise_details/<exercise>', methods=['GET'])
+def get_page_exercise_details():
+    pass
+
+
+
+@app.route('/search', methods=['GET'])
+def get_page_exercise_search():
+    
+    #body_data =  get_column("body_part", "name")
+    #equip_data = get_column("equipment", "name"")
+
+    # TODO: Remove hardcoded data when get_column is implemented
+    body_data = ["Biceps","Abdominals","Shoulders", "Back", "Quads"]
+    equipment_data = ["None", "Kettle_bell", "Barbell", "Exercise_Ball", "Dumbbell"]
+
+    data = {"body_data": body_data, "equipment_data": equipment_data}
+
+    return render_template('search.html', data=data)
+
+
+@app.route('/search_results/<body_part>/<equipment>', methods=['GET'])
+def get_page_search_results(body_part, equipment):
+
+    #data = exercise_search('body_part', 'equipment')
+
+    # TODO: Remove hardcoded data when exercise_search is implemented
+    data = [{'exercise': 'Push_Up', 'body_part': body_part, 'equipment': equipment},
+            {'exercise': 'Bicep_Curl', 'body_part': body_part, 'equipment': equipment},
+            {'exercise': 'Squat', 'body_part': body_part, 'equipment': equipment},
+            {'exercise': 'Lunge', 'body_part': body_part, 'equipment': equipment}]
+
+    headers = {"exercise": "Exercise",
+               "body_part": "Body Part",
+               "equipment": "Equipment"}
+    
+    ids = {'buttons': 'favorites-button', }
+
+
+    return render_template('search_results.html', data=data, headers=headers)
+
+@app.route('/profile/<user_id>', methods=['GET'])
+def get_page_profile(user_id):
+    
+    #data = get_user_favorites(user_id)
+
+    user_data = {'username': 'sample', 'email': 'sample@gmail.com'}
+
+    data = [{'exercise': 'Push_Up', 'body_part': 'Chest', 'equipment': 'None'},
+            {'exercise': 'Bicep_Curl', 'body_part': 'Biceps', 'equipment': 'Dumbbell'},
+            {'exercise': 'Squat', 'body_part': 'Quads', 'equipment': 'Barbell'},
+            {'exercise': 'Lunge', 'body_part': 'Quads', 'equipment': 'None'}]
+    
+    headers = {"exercise": "Exercise",
+               "body_part": "Body Part",
+               "equipment": "Equipment"}
+    
+    return render_template('profile.html', data=data, user_data=user_data, headers=headers)
+=======
 @app.route('/db_drop')
 def dropping():
     conn = psycopg2.connect("postgres://hulk_user:sJ7uTRAXdhTsJQGOLD9Yq0uhsVBchdAE@dpg-cgrkvt1mbg5e4kh44l70-a.oregon-postgres.render.com/hulk")
@@ -167,6 +250,7 @@ def get_page_exercise_details(exercise_id):
     
     conn.close()
     return details
+>>>>>>> origin/main
 
 
 def get_page_exercise_search(part_name, equipment_name, user_id = None):
@@ -497,6 +581,29 @@ def get_user_favorites(user_id):
         exercise_id = c.fetchall()
         exercise_id = exercise_id[0][0]
 
+<<<<<<< HEAD
+# TODO
+def get_user_favorites():
+    pass
+
+# TODO
+def get_column(table, column):
+    """
+    Description: Get specified columns from a table
+
+    Parameters:
+        table: String - table name
+        columns: String - column name
+
+    Returns: list of strings - column values
+    """
+    pass
+
+
+
+
+
+=======
         command = "SELECT * FROM exercise WHERE exercise_id = "
         command += str(exercise_id) + ";"
         
@@ -514,3 +621,4 @@ def get_user_favorites(user_id):
     
     conn.close()
     return exercise_list
+>>>>>>> origin/main

@@ -1,5 +1,25 @@
+{% from "macros/table_macros.html" import render_3_col_table, delete_button %}
+
 {% extends "navbar.html" %}
 {% block title %}Hulk - User Profile{% endblock %}
+{% block head %}
+    <script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock %}
 {% block content %}
-<p>This is the profile page</p>
+    <div id="user-info-container">
+        <div id='prompt'>
+            <h2>User Info</h2>
+        </div>
+        <div id='user-info'>
+            <p> <strong> Username: </strong>{{user_data.username}}</p>
+            <p> <strong> Email: </strong>{{user_data.email}}</p>
+        </div>
+    </div>
+
+    <div class='favorites-table-container'>
+        <div class='table-wrapper'>
+            {{render_3_col_table(data, headers, delete_button)}} 
+        </div>
+    </div>
 {% endblock %}
