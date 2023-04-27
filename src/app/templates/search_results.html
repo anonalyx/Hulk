@@ -1,4 +1,4 @@
-{% from "macros/table_macros.html" import render_3_col_table %}
+{% from "macros/table_macros.html" import render_3_col_table, favorites_button %}
 
 {% extends "navbar.html" %}
 {% block title %}Hulk - Search Results{% endblock %}
@@ -10,7 +10,13 @@
 
 <div class='search-table-container'>
     <div class='table-wrapper'>
-        {{ render_3_col_table(data, headers, svg_content) }}   
+        {{ render_3_col_table(data, headers, favorites_button ) }}   
     </div>
 </div>
+
+<div class ='new-search-button-container'>
+    <a href= {{ url_for('get_page_exercise_search') }} class="btn" id="new-search-button">New Search</a>
+</div>
+
+
 {% endblock %}

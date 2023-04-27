@@ -41,3 +41,25 @@
     fill: rgb(255, 235, 59);
 }
 
+.delete-icon:hover{
+    cursor: pointer;
+}
+
+.new-search-button-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#new-search-button{
+    margin-top: 50px;
+    
+    width: 100vw;
+    max-width: 250px;
+    min-width: 150px;
+
+    border: black solid 1px;
+
+    background-color: rgb(12, 177, 12);
+    color: #fff;
+}

@@ -4,7 +4,7 @@ import os
 
 app = Flask(__name__)
 
-# commenting this out. Writing index route.
+# commenting this out. Writing index route.``
 '''
 @app.route('/')
 def index():
@@ -42,13 +42,14 @@ ROUTES:
     - Login
     - Landing Page
     - Exercise Search
-    - Exercise Result
+    - Exercise Search Results
+    - Exercise Details
     - Profile
 
 '''
 
 
-# TODO
+@app.route('/exercise_details/<exercise>', methods=['GET'])
 def get_page_exercise_details():
     pass
 
@@ -70,7 +71,7 @@ def get_page_exercise_search():
 
 
 @app.route('/search_results/<body_part>/<equipment>', methods=['GET'])
-def get_page_exercise_search_results(body_part, equipment):
+def get_page_search_results(body_part, equipment):
 
     #data = exercise_search('body_part', 'equipment')
 
@@ -83,11 +84,30 @@ def get_page_exercise_search_results(body_part, equipment):
     headers = {"exercise": "Exercise",
                "body_part": "Body Part",
                "equipment": "Equipment"}
+    
+    ids = {'buttons': 'favorites-button', }
 
-    svg_path = os.path.join(app.static_folder, 'icons', 'favorites_icon.svg')
-    svg_content = read_svg_content(svg_path)
 
-    return render_template('search_results.html', data=data, headers=headers, svg_content=svg_content)
+    return render_template('search_results.html', data=data, headers=headers)
+
+@app.route('/profile/<user_id>', methods=['GET'])
+def get_page_profile(user_id):
+    
+    #data = get_user_favorites(user_id)
+
+    user_data = {'username': 'sample', 'email': 'sample@gmail.com'}
+
+    data = [{'exercise': 'Push_Up', 'body_part': 'Chest', 'equipment': 'None'},
+            {'exercise': 'Bicep_Curl', 'body_part': 'Biceps', 'equipment': 'Dumbbell'},
+            {'exercise': 'Squat', 'body_part': 'Quads', 'equipment': 'Barbell'},
+            {'exercise': 'Lunge', 'body_part': 'Quads', 'equipment': 'None'}]
+    
+    headers = {"exercise": "Exercise",
+               "body_part": "Body Part",
+               "equipment": "Equipment"}
+    
+    return render_template('profile.html', data=data, user_data=user_data, headers=headers)
+
 
 # TODO
 @app.route('/signup', methods=['POST'])
@@ -138,10 +158,6 @@ def get_column(table, column):
     """
     pass
 
-def read_svg_content(filename):
-    with open(filename, 'r') as f:
-        content = f.read()
-    return content
 
 
 
