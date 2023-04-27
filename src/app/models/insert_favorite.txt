@@ -1,0 +1,4 @@
+INSERT INTO favorite Values
+(0, 'LeBron', 'Bicep Curl'),
+(1, 'Kobe', 'Rows'),
+(2, 'Tom Brady', 'Squats');

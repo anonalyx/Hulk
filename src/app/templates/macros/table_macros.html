@@ -19,6 +19,7 @@
 {% endmacro %}
 
 {% macro render_3_col_table(data, headers, buttons_macro) %}
+
     <table class="table three-col-table">
         <thead>
             <tr class = "three-col-table-header">
@@ -32,10 +33,16 @@
                 {% for cell in data %}
                     <tr data-selection={{ cell["exercise"] }}>
                         
+<<<<<<< HEAD
                         <!--<th scope="row" id='favorites-button' data-selected='false' >
                             {{ svg_content|safe }}
                         </th>-->
                         {{ buttons_macro() }}
+=======
+                        <th scope="row" id='favorites-button' data-selected='false' >
+                            {{ svg_content|safe }}
+                        </th>
+>>>>>>> origin/main
                         <th scope="row"> {{ helper.underscore_to_space(cell["exercise"]) }} </th>
                         <th scope="row"> {{ helper.underscore_to_space(cell["body_part"]) }} </th>
                         <th scope="row"> {{ helper.underscore_to_space(cell["equipment"]) }} </th>
@@ -43,6 +50,7 @@
                 {% endfor %}
         </tbody>
     </table>
+<<<<<<< HEAD
 {% endmacro %}
 
 {% macro favorites_button() %}
@@ -61,3 +69,6 @@
         </svg>
     </th>
 {% endmacro%}
+=======
+{% endmacro %}
+>>>>>>> origin/main
