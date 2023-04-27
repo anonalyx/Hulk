@@ -23,8 +23,8 @@ def db_testing():
     
     return tables
 
-
-## connects to PostgreSQL, executes SQL commands from text files, and returns a string with their execution status        
+    
+## connects to PostgreSQL, executes SQL commands from text files, and returns a string with their execution status
 #@app.route('/db_create')
 def db_creating():
     conn = psycopg2.connect("postgres://hulk_user:sJ7uTRAXdhTsJQGOLD9Yq0uhsVBchdAE@dpg-cgrkvt1mbg5e4kh44l70-a.oregon-postgres.render.com/hulk")
@@ -116,6 +116,7 @@ def db_selecting():
     conn.close()
     return response_string
 
+
 ## retrieves and formats all records for each table, and returns an HTML string containing the tables and records
 #@app.route('/db_drop')
 def db_dropping():
@@ -140,6 +141,7 @@ def db_dropping():
         
     conn.close()
     return response_string
+
 
 ## retrieves exercise and body part information based on the exercise ID, combines and returns the results as a JSON response
 #@app.route('/exercise_details/<exercise_id>')
@@ -174,6 +176,7 @@ def db_get_page_exercise_details(exercise_id):
     conn.close()
     return details
 
+
 ##  retrieves exercises by body part and equipment criteria, and adds a "favorite" flag for the specified user ID.
 def db_get_page_exercise_search(part_name, equipment_name, user_id = None):
     if len(part_name) == 0:
@@ -196,99 +199,6 @@ def db_get_page_exercise_search(part_name, equipment_name, user_id = None):
     else:
         command += part_name[-1] + "') AND (exercise_equipment = '"
 
-        for player in records:
-            response_string += "<tr>"
-
-            for info in player:
-                response_string += "<td>{}</td>".format(info)
-
-            response_string += "<tr>"
-
-        response_string += "<table><br>"
-    
-    conn.close()
-    return response_string
-
-
-#@app.route('/db_drop')
-def db_dropping():
-    conn = psycopg2.connect("postgres://hulk_user:sJ7uTRAXdhTsJQGOLD9Yq0uhsVBchdAE@dpg-cgrkvt1mbg5e4kh44l70-a.oregon-postgres.render.com/hulk")
-    cur = conn.cursor()
-    
-    response_string = ""
-    all_tables = ["favorite", "exercise", "account", "body_part", "equipment"]
-    
-    for table in all_tables:
-        command = "DROP TABLE IF EXISTS " + table + ";"
-        
-        try:
-            cur.execute(command)
-            conn.commit()
-        
-        except:
-            response_string += "Failed: "
-            
-        response_string += command
-        response_string += "<br><br>"
-        
-    conn.close()
-    return response_string
-
-
-#@app.route('/exercise_details/<exercise_id>')
-def db_get_page_exercise_details(exercise_id):
-    conn = psycopg2.connect("postgres://hulk_user:sJ7uTRAXdhTsJQGOLD9Yq0uhsVBchdAE@dpg-cgrkvt1mbg5e4kh44l70-a.oregon-postgres.render.com/hulk")
-    c = conn.cursor()
-    
-    command = "SELECT * FROM exercise WHERE exercise_id = "
-    command += str(exercise_id) + ";"
-    c.execute(command)
-    
-    data = c.fetchall()
-    data = data[0][1:]
-    body_part = data[2]
-    
-    command = "SELECT calories FROM body_part WHERE part_name = '"
-    command += body_part + "';"
-    c.execute(command)
-    
-    calories = c.fetchall()
-    calories = calories[0]
-    data += calories
-    
-    details = {
-        'exercise_name': data[0],
-        'exercise_description': data[1],
-        'body_part_name': data[2],
-        'equipment_name': data[3],
-        'calories': data[4],
-    }
-    
-    conn.close()
-    return details
-
-
-def db_get_page_exercise_search(part_name, equipment_name, user_id = None):
-    if len(part_name) == 0:
-        return []
-    
-    conn = psycopg2.connect("postgres://hulk_user:sJ7uTRAXdhTsJQGOLD9Yq0uhsVBchdAE@dpg-cgrkvt1mbg5e4kh44l70-a.oregon-postgres.render.com/hulk")
-    c = conn.cursor()
-    
-    command = """
-    SELECT *
-    FROM exercise
-    WHERE (exercise_body_part = '"""
-    
-    for body in part_name[:-1]:
-        command += body + "' OR exercise_body_part = '"
-    
-    if len(equipment_name) == 0:
-        command += part_name[-1] + "');"
-        
-    else:
-        command += part_name[-1] + "') AND (exercise_equipment = '"
-
         for equip in equipment_name[:-1]:
             command += equip + "' OR exercise_equipment = '"
 
@@ -339,149 +249,6 @@ def db_get_page_exercise_search(part_name, equipment_name, user_id = None):
     conn.close()
     return search_results
 
-
-#@app.route('/exercise_details/<test_part>/<test_equipment>')
-#@app.route('/exercise_details/<test_part>/<test_equipment>/<user_id>')
-def db_test_page_exercise_search(test_part, test_equipment, user_id = None):
-    part_name = []
-    equipment_name = []
-    
-    if test_part != 'Empty':
-        part_name = ['Arms', 'Back', 'Legs', 'Cardio']
-        
-    if test_equipment != 'Empty':
-        equipment_name = ['Dumbells', 'None']
-        
-    return get_page_exercise_search(part_name, equipment_name, user_id)
-        
-
-#@app.route('/register/<username>/<email>')
-def db_register_user(username, email):
-    conn = psycopg2.connect("postgres://hulk_user:sJ7uTRAXdhTsJQGOLD9Yq0uhsVBchdAE@dpg-cgrkvt1mbg5e4kh44l70-a.oregon-postgres.render.com/hulk")
-    c = conn.cursor()
-    
-    command = "SELECT * FROM account WHERE username = '"
-    command += username + "' OR email = '"
-    command += email + "';"
-    
-    c.execute(command)
-    existing_user = c.fetchall()
-    
-    if len(existing_user) != 0:
-        conn.close()
-        return "Username or Email already in use"
-    
-    try:
-        command = "SELECT account_id FROM account;"
-        c.execute(command)
-
-        curr_id = 0
-        every_id = c.fetchall()
-
-        for index in every_id:
-            index_id = index[0]
-
-            if index_id >= curr_id:
-                curr_id = index_id + 1
-                
-        curr_id = str(curr_id)
-        command = "INSERT INTO account Values ("
-        command += curr_id + ", '"
-        command += username + "', '"
-        command += email + "');"
-    
-        c.execute(command)
-        conn.commit()
-        conn.close()
-        
-        registration = "Successfully Registrated <br>User ID: "
-        registration += curr_id + "<br>Username: "
-        registration += username + "<br>Email Address: "
-        registration += email
-        
-        return registration
-        
-    except:
-        conn.close()
-        return "Registration Failed"
-
-    
-#@app.route('/login/<username>/<email>')
-def db_get_page_login(username, email):
-    conn = psycopg2.connect("postgres://hulk_user:sJ7uTRAXdhTsJQGOLD9Yq0uhsVBchdAE@dpg-cgrkvt1mbg5e4kh44l70-a.oregon-postgres.render.com/hulk")
-    c = conn.cursor()
-    
-    command = "SELECT account_id FROM account WHERE username = '"
-    command += username + "' AND email = '"
-    command += email + "';"
-    
-    c.execute(command)
-    user_id = c.fetchall()
-    conn.close()
-    
-    try:
-        user_id = user_id[0][0]
-        user_id = str(user_id)
-        return user_id
-    
-    except:
-        return "Login Failed: User Not Found"
-
-    
-#@app.route('/authenticate/<username>/<email>')
-def db_authenticate(username, email):
-    login = get_page_login(username, email)
-    return [login.isdigit()]
-
-        for equip in equipment_name[:-1]:
-            command += equip + "' OR exercise_equipment = '"
-
-        command += equipment_name[-1] + "');"
-    
-    c.execute(command)
-    exercises = c.fetchall()
-    search_results = []
-    
-    for data in exercises:
-        details = {
-            'exercise_id': data[0],
-            'exercise_name': data[1],
-            'part_name': data[3],
-            'equipment_name': data[4]
-        }
-        search_results.append(details)
-    
-    if user_id == None:
-        conn.close()
-        return search_results
-    
-    command = "SELECT username FROM account WHERE account_id = "
-    command += str(user_id) + ";"
-    
-    c.execute(command)
-    user = c.fetchall()
-    
-    if len(user) == 0:
-        return "User Not Found"
-    
-    user = user[0][0]
-    
-    for result in search_results:
-        command = "SELECT favorite_id FROM favorite WHERE favorite_user = '"
-        command += user + "' AND favorite_exercise = '"
-        command += result['exercise_name'] + "';"
-        
-        c.execute(command)
-        favs_found = c.fetchall()
-        
-        if len(favs_found) == 0:
-            result['favorite'] = False
-            
-        else:
-            result['favorite'] = True
-            
-    conn.close()
-    return search_results
 
 ##  accepts three URL parameters, sets search criteria based on two of them, and calls get_page_exercise_search with the criteria and the third parameter as an optional user ID.
 #@app.route('/exercise_details/<test_part>/<test_equipment>')
@@ -549,7 +316,8 @@ def db_register_user(username, email):
         conn.close()
         return "Registration Failed"
 
- ## log in a user by querying the account table for a matching username and email, and returns the user ID if found, or a "Login Failed" message if not    
+    
+## log in a user by querying the account table for a matching username and email, and returns the user ID if found, or a "Login Failed" message if not
 #@app.route('/login/<username>/<email>')
 def db_get_page_login(username, email):
     conn = psycopg2.connect("postgres://hulk_user:sJ7uTRAXdhTsJQGOLD9Yq0uhsVBchdAE@dpg-cgrkvt1mbg5e4kh44l70-a.oregon-postgres.render.com/hulk")
@@ -571,11 +339,13 @@ def db_get_page_login(username, email):
     except:
         return "Login Failed: User Not Found"
 
-## returns whether the given username and email combination exists in the database as a user, by calling another function and checking if the returned user ID is a digit    
+    
+## returns whether the given username and email combination exists in the database as a user, by calling another function and checking if the returned user ID is a digit 
 #@app.route('/authenticate/<username>/<email>')
 def db_authenticate(username, email):
     login = get_page_login(username, email)
     return [login.isdigit()]
+
 
 ##  adds a new exercise to the user's favorite list in a PostgreSQL database.
 #@app.route('/add_favorite/<user_id>/<exercise_id>')
