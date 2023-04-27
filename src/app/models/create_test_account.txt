@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS test_account (
+account_id INT PRIMARY KEY,
+username VARCHAR(15) UNIQUE,
+email VARCHAR(320) UNIQUE);

@@ -1,0 +1,6 @@
+INSERT INTO test_body_part Values
+(0, 'Arms', 15),
+(1, 'Back', 12),
+(2, 'Legs', 20),
+(3, 'Abs', 12),
+(4, 'Cardio', 200);

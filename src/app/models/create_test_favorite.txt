@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS test_favorite (
+favorite_id INT PRIMARY KEY,
+favorite_user VARCHAR(15),
+favorite_exercise VARCHAR(30),
+CONSTRAINT fk_user FOREIGN KEY(favorite_user) REFERENCES account(username),
+CONSTRAINT fk_exercise FOREIGN KEY(favorite_exercise) REFERENCES exercise(exercise_name));

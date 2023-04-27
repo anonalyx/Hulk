@@ -1,4 +1,4 @@
-INSERT INTO equipment Values
+INSERT INTO test_equipment Values
 (0, 'None'),
 (1, 'Dumbbells'),
 (2, 'Single Dumbbell'),

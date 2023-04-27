@@ -1,0 +1,4 @@
+INSERT INTO test_account Values
+(23, 'LeBron', 'KingJames@nba.com'),
+(24, 'Kobe', 'BeanBryant@nba.com'),
+(12, 'Tom Brady', 'DeflateGate@nfl.com');

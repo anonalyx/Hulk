@@ -1,0 +1,6 @@
+INSERT INTO test_exercise Values
+(0, 'Bicep Curl', 'Curls dumbbells from a standing position', 'Arms', 'Dumbells'),
+(1, 'Rows', 'Pulls dumbbells towards the chest while bending over', 'Back', 'Dumbells'),
+(2, 'Squats', 'Lowers body by bending at the hips and knees', 'Legs', 'Body Weight'),
+(3, 'Sit-Ups', 'Lifts upper body towards knees while lying on the ground', 'Abs', 'Body Weight'),
+(4, 'Running', 'Fast-paced movement using legs and feet', 'Cardio', 'None');
