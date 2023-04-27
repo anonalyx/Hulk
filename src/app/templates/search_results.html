@@ -5,12 +5,15 @@
 {% block head %}
     <script src="{{ url_for('static', filename='js/search_results.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/search_results.css') }}">
+    <script type="text/javascript" >
+           const ADD_FAV_URL = {{ url_for('add_favorite_exercise')|tojson }};
+           const REM_FAV_URL = {{ url_for('remove_favorite_exercise')|tojson }};
+        </script>
 {% endblock %}
 {% block content %}
-
 <div class='search-table-container'>
     <div class='table-wrapper'>
-        {{ render_3_col_table(data, headers, svg_content) }}   
+        {{ render_3_col_table(data, headers, svg_content) }}
     </div>
 </div>
 {% endblock %}

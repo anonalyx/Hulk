@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, redirect, make_response, jsonify
+from flask import Flask, render_template, request, url_for, redirect, make_response, jsonify, session
 from calCounter import Cal_Counter
 import os
 
@@ -56,7 +56,7 @@ def get_page_exercise_details():
 
 @app.route('/search', methods=['GET'])
 def get_page_exercise_search():
-    
+
     #body_data =  get_column("body_part", "name")
     #equip_data = get_column("equipment", "name"")
 
@@ -111,14 +111,32 @@ def authenticate():
 def home():
     return render_template('home.html')
 
-# TODO
+@app.route('/add_favorite_exercise', methods=['POST'])
 def add_favorite_exercise():
-    pass
-
+    """ Adds an exercise to the user's favorites """
+    if 'user' in session:
+        user_id = session['user']
+        exercise = request.form.get('exercise')
+        # db_add_favorite_exercise(exercise, user_id)
+        return {'success': True,
+                'message': 'Favorite added'}
+    else:
+        return {'success': False,
+                'message': 'Please log in or create an account to add favorites'}
 
 # TODO
+@app.route('/remove_favorite_exercise', methods=['POST'])
 def remove_favorite_exercise():
-    pass
+    """ Removes an exercise from the user's favorites """
+    if 'user' in session:
+        user_id = session['user']
+        exercise = request.form.get('exercise')
+        # db_remove_favorite_exercise(exercise, user_id)
+        return {'success': True,
+                'message': 'Favorite removed'}
+    else:
+        return {'success': False,
+                'message': 'Please log in or create an account to remove favorites'}
 
 
 # TODO
@@ -142,7 +160,3 @@ def read_svg_content(filename):
     with open(filename, 'r') as f:
         content = f.read()
     return content
-
-
-
-
