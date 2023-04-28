@@ -7,8 +7,8 @@ class TestDB(unittest.TestCase):
     def setUp(self):
         self.db = DB(isTest=True, isLocal=True)
         self.exercise_id = 1
-        self.part_name = 'Arms'
-        self.equipment_name = 'Dumbbells'
+        self.part_name = ['Arms']
+        self.equipment_name = ['Dumbbells']
         self.user_id = 23
         self.db.db_drop()
 
@@ -50,10 +50,10 @@ class TestDB(unittest.TestCase):
         for key in result:
             self.assertIsNotNone(result[key])
 
-    def test_db_get_page_exercise_search(self):
+    def test_db_get_exercise_search_results(self):
         self.db.db_create_tables()
         self.db.db_populate_records()
-        result = self.db.db_get_page_exercise_search(self.part_name, self.equipment_name, self.user_id)
+        result = self.db.db_get_exercise_search_results(self.part_name, self.equipment_name, self.user_id)
         for item in result:
             self.assertIsInstance(item, dict)
             self.assertCountEqual(item.keys(),
@@ -62,6 +62,7 @@ class TestDB(unittest.TestCase):
             # Check that each value in the dictionary is not None
             for key in item:
                 self.assertIsNotNone(item[key])
+
 
 if __name__ == '__main__':
     unittest.main()

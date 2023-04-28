@@ -150,7 +150,8 @@ class DB:
             return details
 
     ##  retrieves exercises by body part and equipment criteria, and adds a "favorite" flag for the specified user ID.
-    def db_get_page_exercise_search(self, part_name, equipment_name, user_id=None):
+    def db_get_exercise_search_results(self, part_name, equipment_name, user_id=None):
+        print(part_name, equipment_name, user_id)
         with self as conn:
             self.cur = conn.cursor()
             if len(part_name) == 0:
@@ -221,29 +222,18 @@ class DB:
     ##  accepts three URL parameters, sets search criteria based on two of them, and calls get_page_exercise_search with the criteria and the third parameter as an optional user ID.
     # @app.route('/exercise_details/<test_part>/<test_equipment>')
     # @app.route('/exercise_details/<test_part>/<test_equipment>/<user_id>')
-    def db_test_page_exercise_search(self, test_part, test_equipment, user_id=None):
-        with self.conn:
-            part_name = []
-            equipment_name = []
-
-            if test_part != 'Empty':
-                part_name = ['Arms', 'Back', 'Legs', 'Cardio']
-
-            if test_equipment != 'Empty':
-                equipment_name = ['Dumbells', 'None']
-
-            return get_page_exercise_search(part_name, equipment_name, user_id)
 
     # @app.route('/register/<username>/<email>')
     def db_register_user(self, username, email):
-        with self.conn:
+        with self as conn:
+            self.cur = conn.cursor()
 
             command = "SELECT * FROM account WHERE username = '"
             command += username + "' OR email = '"
             command += email + "';"
 
             self.cur.execute(command)
-            existing_user = c.fetchall()
+            existing_user = self.cur.fetchall()
 
             if len(existing_user) != 0:
                 return "Username or Email already in use"
@@ -282,9 +272,9 @@ class DB:
 
     ## log in a user by querying the account table for a matching username and email, and returns the user ID if found, or a "Login Failed" message if not
     # @app.route('/login/<username>/<email>')
-    def db_get_page_login(self, username, email):
+    def db_auth(self, username, email):
         with self.conn:
-
+            self.cur = conn.cursor()
             command = "SELECT account_id FROM account WHERE username = '"
             command += username + "' AND email = '"
             command += email + "';"
@@ -312,7 +302,8 @@ class DB:
     #  adds a new exercise to the user's favorite list in a PostgreSQL database.
     # @app.route('/add_favorite/<user_id>/<exercise_id>')
     def db_add_favorite_exercise(self, user_id, exercise_id):
-        with self.conn:
+        with self as conn:
+            self.cur = conn.cursor()
             command = "SELECT username FROM account WHERE account_id = "
             command += str(user_id) + ";"
 
@@ -365,7 +356,7 @@ class DB:
                 command += exercise + "');"
 
                 self.cur.execute(command)
-                self.conn.commit()
+                conn.commit()
 
                 result = "Added New Favorite <br>Favorite ID: "
                 result += curr_id + "<br>Username: "
@@ -380,7 +371,8 @@ class DB:
     ## route for removing a user's favorite exercise from the database based on the user ID and exercise ID parameters
     # @app.route('/remove_favorite/<user_id>/<exercise_id>')
     def db_remove_favorite_exercise(self, user_id, exercise_id):
-        with self.conn:
+        with self as conn:
+            self.cur = conn.cursor()
 
             command = "SELECT username FROM account WHERE account_id = "
             command += str(user_id) + ";"
@@ -419,7 +411,7 @@ class DB:
                 command += exercise + "';"
 
                 self.cur.execute(command)
-                self.conn.commit()
+                conn.commit()
 
                 result = "Favorite Successfully Removed <br>Username: "
                 result += username + "<br>Exercise: "
@@ -433,7 +425,8 @@ class DB:
     # # gets the list of favorite exercises for a given user, retrieves details about the exercises from the
     # database, and returns them as a list of dictionaries @app.route('/user_favorites/<user_id>')
     def db_get_user_favorites(self, user_id):
-        with self.conn:
+        with self as conn:
+            self.cur = conn.cursor()
 
             command = "SELECT username FROM account WHERE account_id = "
             command += str(user_id) + ";"

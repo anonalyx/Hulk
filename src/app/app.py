@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, url_for, redirect, make_response, jsonify
-from .calCounter import Cal_Counter
-
+from src.app.calCounter import Cal_Counter
+from src.app.models.db_routes import DB
 app = Flask(__name__)
 
 # commenting this out. Writing index route.
@@ -65,18 +65,19 @@ def get_page_exercise_search():
 
 @app.route('/search_results/<body_part>/<equipment>', methods=['GET'])
 def get_page_search_results(body_part, equipment):
-
-    #data = exercise_search('body_part', 'equipment')
+    print(body_part, equipment)
+    with DB as db:
+        data = db.db_get_exercise_search_results([body_part], [equipment])
 
     # TODO: Remove hardcoded data when exercise_search is implemented
-    data = [{'exercise': 'Push_Up', 'body_part': body_part, 'equipment': equipment},
-            {'exercise': 'Bicep_Curl', 'body_part': body_part, 'equipment': equipment},
-            {'exercise': 'Squat', 'body_part': body_part, 'equipment': equipment},
-            {'exercise': 'Lunge', 'body_part': body_part, 'equipment': equipment}]
+    #data = [{'exercise': 'Push_Up', 'body_part': body_part, 'equipment': equipment},
+            # {'exercise': 'Bicep_Curl', 'body_part': body_part, 'equipment': equipment},
+            # {'exercise': 'Squat', 'body_part': body_part, 'equipment': equipment},
+            # {'exercise': 'Lunge', 'body_part': body_part, 'equipment': equipment}]
 
-    headers = {"exercise": "Exercise",
-               "body_part": "Body Part",
-               "equipment": "Equipment"}
+    #headers = {"exercise": "Exercise",
+    #           "body_part": "Body Part",
+    #           "equipment": "Equipment"}
     
     ids = {'buttons': 'favorites-button', }
 
@@ -85,8 +86,8 @@ def get_page_search_results(body_part, equipment):
 
 @app.route('/profile', methods=['GET'])
 def get_page_profile():
-    
-    #data = get_user_favorites(user_id)
+    with DB as db:
+        data = db.db_get_user_favorites(user_id)
 
     user_data = {'username': 'sample', 'email': 'sample@gmail.com'}
 
@@ -103,7 +104,9 @@ def get_page_profile():
 
 # TODO
 @app.route('/signup', methods=['POST'])
-def register_user():
+def register_user(username, email):
+    with DB as db:
+        db.db_register_user(username, email)
     return redirect(url_for('home'))
 
 
@@ -115,7 +118,9 @@ def get_page_login():
 
 # TODO
 @app.route('/auth', methods=['POST'])
-def authenticate():
+def authenticate(username,email):
+    with DB as db:
+        db.db_auth(username, email)
     return redirect(url_for('home'))
 
 
@@ -124,12 +129,18 @@ def home():
     return render_template('home.html')
 
 # TODO
-def add_favorite_exercise():
-    pass
+@app.route('/add_favorite/<user_id>/<exercise_id')
+def add_favorite_exercise(user_id, exercise_id):
+    with DB as db:
+        db.db_add_favorite_exercise(user_id, exercise_id)
+
 
 
 # TODO
-def remove_favorite_exercise():
+@app.route('/remove_favorite/<user_id>/<exercise_id>')
+def remove_favorite_exercise(user_id, exercise_id):
+    with DB as db:
+        db.db_remove_favorite_exercise(user_id, exercise_id)
     pass
 
 
