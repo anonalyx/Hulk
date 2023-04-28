@@ -28,11 +28,12 @@
         </thead>
         <tbody id='search-results-table-rows'>
                 {% for cell in data %}
-                    <tr data-selection={{ cell["exercise"] }}>
+                    <tr data-selection={{ cell["exercise_name"] }}>
+
                         {{ buttons_macro() }}
-                        <th scope="row"> {{ helper.underscore_to_space(cell["exercise"]) }} </th>
-                        <th scope="row"> {{ helper.underscore_to_space(cell["body_part"]) }} </th>
-                        <th scope="row"> {{ helper.underscore_to_space(cell["equipment"]) }} </th>
+                        <th scope="row"> {{ helper.underscore_to_space(cell["exercise_name"]) }} </th>
+                        <th scope="row"> {{ helper.underscore_to_space(cell["part_name"]) }} </th>
+                        <th scope="row"> {{ helper.underscore_to_space(cell["equipment_name"]) }} </th>
                     </tr>
                 {% endfor %}
         </tbody>

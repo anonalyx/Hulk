@@ -11,6 +11,10 @@ def index():
 '''
 
 
+with DB() as db:
+    db.db_drop()
+    db.db_create_tables()
+    db.db_populate_records()
 @app.route('/calculator', methods=['GET', 'POST'])
 def calculator():
     if request.method == 'GET':
@@ -54,9 +58,10 @@ def get_page_exercise_details():
 
 # TODO
 @app.route('/search', methods=['GET'])
-def get_page_exercise_search():
-    body_data = ["Biceps","Abdominals","Shoulders", "Back", "Quads"]
-    equipment_data = ["None", "Kettle_bell", "Barbell", "Exercise_Ball", "Dumbbell"]
+def get_search():
+    with DB() as db:
+        body_data = db.db_select_col_from_table('body_part', 'part_name')
+        equipment_data = db.db_select_col_from_table('equipment','equipment_name')
 
     data = {"body_data": body_data, "equipment_data": equipment_data}
     return render_template('search.html', data=data)
@@ -66,8 +71,14 @@ def get_page_exercise_search():
 @app.route('/search_results/<body_part>/<equipment>', methods=['GET'])
 def get_page_search_results(body_part, equipment):
     print(body_part, equipment)
-    with DB as db:
-        data = db.db_get_exercise_search_results([body_part], [equipment])
+    try:
+        with DB() as db:
+            print(db)
+            print(dir(db))
+            data = db.db_get_exercise_search_results(body_part, equipment)
+    except Exception as e:
+        print(f'Error: {e}')
+        return
 
     # TODO: Remove hardcoded data when exercise_search is implemented
     #data = [{'exercise': 'Push_Up', 'body_part': body_part, 'equipment': equipment},
@@ -75,11 +86,9 @@ def get_page_search_results(body_part, equipment):
             # {'exercise': 'Squat', 'body_part': body_part, 'equipment': equipment},
             # {'exercise': 'Lunge', 'body_part': body_part, 'equipment': equipment}]
 
-    #headers = {"exercise": "Exercise",
-    #           "body_part": "Body Part",
-    #           "equipment": "Equipment"}
-    
-    ids = {'buttons': 'favorites-button', }
+    headers = {"exercise": "Exercise",
+              "body_part": "Body Part",
+              "equipment": "Equipment"}
 
 
     return render_template('search_results.html', data=data, headers=headers)
@@ -129,7 +138,7 @@ def home():
     return render_template('home.html')
 
 # TODO
-@app.route('/add_favorite/<user_id>/<exercise_id')
+@app.route('/add_favorite/<user_id>/<exercise_id>')
 def add_favorite_exercise(user_id, exercise_id):
     with DB as db:
         db.db_add_favorite_exercise(user_id, exercise_id)

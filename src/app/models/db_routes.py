@@ -23,16 +23,17 @@ class DB:
 
     def __enter__(self):
         self.conn = psycopg2.connect(self.localURL) if self.isLocal else psycopg2.connect(self.deployedURL)
-        return self.conn
+        print(f'Connection successful: {self.conn}')
+        return self
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
-        print('exiting')
+        print(f'Exiting connection: {self.conn}')
         if self.conn is not None:
             self.conn.close()
 
     ## connects to PostgreSQL, executes SQL commands from text files, and returns a string with their execution status
     def db_create_tables(self):
-        with self as conn:
+        with self.conn as conn:
             self.cur = conn.cursor()
 
             for table in self.tables:
@@ -52,7 +53,7 @@ class DB:
 
     ## executes SQL INSERT commands from text files for a set of tables, and returns a string with their execution status
     def db_populate_records(self):
-        with self as conn:
+        with self.conn as conn:
             self.cur = conn.cursor()
 
             for table in self.tables:
@@ -72,7 +73,7 @@ class DB:
 
     ## retrieves and formats all records for each table, and returns an HTML string containing the tables and records
     def db_select_all_tables(self):
-        with self as conn:
+        with self.conn as conn:
             self.cur = conn.cursor()
             path = self.directory + '/get_tables.txt'
             sql = open(path, "r")
@@ -82,7 +83,7 @@ class DB:
             return self.cur.fetchall()
 
     def db_select_all_tables_and_records(self):
-        with self as conn:
+        with self.conn as conn:
             self.cur = conn.cursor()
             records = {}
             for table in self.tables:
@@ -105,11 +106,19 @@ class DB:
                 '''
             return records
 
+    def db_select_col_from_table(self, table, col_index):
+        with self.conn as conn:
+            self.cur = conn.cursor()
+            command = f"SELECT {col_index} FROM  {table}"
+            self.cur.execute(command)
+            records = [record[0] for record in self.cur.fetchall()]
+        return records
     ## retrieves and formats all records for each table, and returns an HTML string containing the tables and records
     def db_drop(self):
-        with self as conn:
+        with self.conn as conn:
+            self.cur = conn.cursor()
             for table in self.tables:
-                command = "DROP TABLE IF EXISTS " + table + ";"
+                command = "DROP TABLE IF EXISTS " + table + " CASCADE;"
 
                 try:
                     self.cur.execute(command)
@@ -123,7 +132,7 @@ class DB:
     # @app.route('/exercise_details/<exercise_id>')
 
     def db_get_page_exercise_details(self, exercise_id):
-        with self as conn:
+        with self.conn as conn:
             self.cur = conn.cursor()
             command = f"SELECT * FROM exercise WHERE exercise_id = {exercise_id};"
             self.cur.execute(command)
@@ -152,30 +161,17 @@ class DB:
     ##  retrieves exercises by body part and equipment criteria, and adds a "favorite" flag for the specified user ID.
     def db_get_exercise_search_results(self, part_name, equipment_name, user_id=None):
         print(part_name, equipment_name, user_id)
-        with self as conn:
+        with self.conn as conn:
             self.cur = conn.cursor()
             if len(part_name) == 0:
                 return []
 
-            command = """
-            SELECT *
-            FROM exercise
-            WHERE (exercise_body_part = '"""
-
-            for body in part_name[:-1]:
-                command += body + "' OR exercise_body_part = '"
-
-            if len(equipment_name) == 0:
-                command += part_name[-1] + "');"
-
-            else:
-                command += part_name[-1] + "') AND (exercise_equipment = '"
-
-                for equip in equipment_name[:-1]:
-                    command += equip + "' OR exercise_equipment = '"
-
-                command += equipment_name[-1] + "');"
-
+            command = f"""
+                        SELECT *
+                        FROM exercise
+                        WHERE (exercise_body_part = '{part_name}')
+                         AND (exercise_equipment = '{equipment_name}');
+                        """
             self.cur.execute(command)
             exercises = self.cur.fetchall()
             search_results = []
