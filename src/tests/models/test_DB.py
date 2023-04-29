@@ -1,7 +1,7 @@
 import unittest
 import requests
 from src.app.models.db_routes import DB
-from src.app.app import get_page_search_results, get_search
+from src.app.app import get_page_search_results, get_search, register_user, add_favorite_exercise, remove_favorite_exercise
 
 
 class TestDB(unittest.TestCase):
@@ -12,6 +12,8 @@ class TestDB(unittest.TestCase):
         cls.part_name = 'Arms'
         cls.equipment_name = 'Dumbbells'
         cls.user_id = 23
+        cls.username = 'Alex'
+        cls.email = 'alcu6962@colorado.edu'
         with cls.db as x:
             x.db_drop()
             x.db_create_tables()
@@ -89,6 +91,15 @@ class TestDB(unittest.TestCase):
         print(data)
     def test_get_search_results(self):
         get_search()
+
+    def test_register_user(self):
+        register_user(self.username, self.email)
+
+    def test_add_favorite_exercise(self):
+        add_favorite_exercise()
+        pass
+    def test_remove_favorite_exercise(self):
+        pass
 
 if __name__ == '__main__':
     unittest.main()

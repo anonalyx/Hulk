@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, url_for, redirect, make_response, jsonify
+from flask import Flask, render_template, request, url_for, redirect, make_response, jsonify, session
 from src.app.calCounter import Cal_Counter
 from src.app.models.db_routes import DB
 app = Flask(__name__)
+app.secret_key = 'OurSecret'
 
 # commenting this out. Writing index route.
 '''
@@ -95,28 +96,32 @@ def get_page_search_results(body_part, equipment):
 
 @app.route('/profile', methods=['GET'])
 def get_page_profile():
-    with DB as db:
-        data = db.db_get_user_favorites(user_id)
+    with DB() as db:
+        data = db.db_get_user_favorites(session['user_id'])
 
-    user_data = {'username': 'sample', 'email': 'sample@gmail.com'}
-
-    data = [{'exercise': 'Push_Up', 'body_part': 'Chest', 'equipment': 'None'},
-            {'exercise': 'Bicep_Curl', 'body_part': 'Biceps', 'equipment': 'Dumbbell'},
-            {'exercise': 'Squat', 'body_part': 'Quads', 'equipment': 'Barbell'},
-            {'exercise': 'Lunge', 'body_part': 'Quads', 'equipment': 'None'}]
-    
     headers = {"exercise": "Exercise",
                "body_part": "Body Part",
                "equipment": "Equipment"}
     
-    return render_template('profile.html', data=data, user_data=user_data, headers=headers)
+    return render_template('profile.html', data=data, headers=headers)
 
 # TODO
 @app.route('/signup', methods=['POST'])
-def register_user(username, email):
-    with DB as db:
-        db.db_register_user(username, email)
-    return redirect(url_for('home'))
+def register_user(username= None, email=None):
+    if username is None or email is None:
+        username = request.form['username']
+        email = request.form['email']
+
+    try:
+        with DB() as db:
+            db.db_register_user(username, email)
+            session['user_id'] = db.db_auth(username, email)
+        session['username'] = username
+        session['email'] = email
+        return redirect(url_for('home'))
+    except Exception as e:
+        print(e)
+        return redirect(url_for('get_page_login'))
 
 
 # TODO
@@ -127,7 +132,18 @@ def get_page_login():
 
 # TODO
 @app.route('/auth', methods=['POST'])
-def authenticate(username,email):
+def authenticate():
+    username = request.form['username']
+    email = request.form['email']
+    try:
+        db = DB()
+        # session['user_id'] = db.db_get_page_login(self, username, email)
+        session['username'] = username
+        session['email'] = email
+        return redirect(url_for('home'))
+    except:
+        return redirect(url_for('get_page_login'))
+
     with DB as db:
         db.db_auth(username, email)
     return redirect(url_for('home'))
@@ -138,21 +154,43 @@ def home():
     return render_template('home.html')
 
 # TODO
-@app.route('/add_favorite/<user_id>/<exercise_id>')
-def add_favorite_exercise(user_id, exercise_id):
-    with DB as db:
-        db.db_add_favorite_exercise(user_id, exercise_id)
-
-
+@app.route('/add_favorite_exercise', methods=['POST'])
+def add_favorite_exercise():
+    print('adding favorite exercise')
+    print(request.form)
+    """ Adds an exercise to the user's favorites """
+    if 'user_id' in session:
+        print('user is in session')
+        user_id = session['user_id']
+        exercise = request.form.get('exercise')
+        print(user_id, exercise)
+        with DB() as db:
+            print(db.conn)
+            db.db_add_favorite_exercise( user_id, exercise)
+        return {'success': True,
+                'message': 'Favorite added'}
+    else:
+        return {'success': False,
+                'message': 'Please log in or create an account to add favorites'}
 
 # TODO
-@app.route('/remove_favorite/<user_id>/<exercise_id>')
-def remove_favorite_exercise(user_id, exercise_id):
-    with DB as db:
-        db.db_remove_favorite_exercise(user_id, exercise_id)
-    pass
-
-
+@app.route('/remove_favorite_exercise', methods=['POST'])
+def remove_favorite_exercise():
+    print('removing favorite exercise')
+    """ Removes an exercise from the user's favorites """
+    print(session)
+    print(request.form)
+    if 'user_id' in session:
+        user_id = session['user_id']
+        exercise = request.form.get('exercise')
+        print(f'exercise selected {exercise}')
+        with DB() as db:
+            db.db_remove_favorite_exercise(user_id, exercise)
+        return {'success': True,
+                'message': 'Favorite removed'}
+    else:
+        return {'success': False,
+                'message': 'Please log in or create an account to remove favorites'}
 # TODO
 def get_user_favorites():
     pass

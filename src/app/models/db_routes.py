@@ -128,20 +128,20 @@ class DB:
                     print(e)
                     return e
 
-    ## retrieves exercise and body part information based on the exercise ID, combines and returns the results as a JSON response
+    ## retrieves exercise and body part information based on the exercise id, combines and returns the results as a json response
     # @app.route('/exercise_details/<exercise_id>')
 
     def db_get_page_exercise_details(self, exercise_id):
         with self.conn as conn:
             self.cur = conn.cursor()
-            command = f"SELECT * FROM exercise WHERE exercise_id = {exercise_id};"
+            command = f"select * from exercise where exercise_id = {exercise_id};"
             self.cur.execute(command)
 
             data = self.cur.fetchall()
             data = data[0][1:]
             body_part = data[2]
 
-            command = f"SELECT calories FROM body_part WHERE part_name = '{body_part}';"
+            command = f"select calories from body_part where part_name = '{body_part}';"
             self.cur.execute(command)
 
             calories = self.cur.fetchall()
@@ -158,7 +158,7 @@ class DB:
 
             return details
 
-    ##  retrieves exercises by body part and equipment criteria, and adds a "favorite" flag for the specified user ID.
+    ##  retrieves exercises by body part and equipment criteria, and adds a "favorite" flag for the specified user id.
     def db_get_exercise_search_results(self, part_name, equipment_name, user_id=None):
         print(part_name, equipment_name, user_id)
         with self.conn as conn:
@@ -167,10 +167,10 @@ class DB:
                 return []
 
             command = f"""
-                        SELECT *
-                        FROM exercise
-                        WHERE (exercise_body_part = '{part_name}')
-                         AND (exercise_equipment = '{equipment_name}');
+                        select *
+                        from exercise
+                        where (exercise_body_part = '{part_name}')
+                         and (exercise_equipment = '{equipment_name}');
                         """
             self.cur.execute(command)
             exercises = self.cur.fetchall()
@@ -188,54 +188,54 @@ class DB:
             if user_id == None:
                 return search_results
 
-            command = "SELECT username FROM account WHERE account_id = "
+            command = "select username from account where account_id = "
             command += str(user_id) + ";"
 
             self.cur.execute(command)
             user = self.cur.fetchall()
 
             if len(user) == 0:
-                return "User Not Found"
+                return "user not found"
 
             user = user[0][0]
 
             for result in search_results:
-                command = "SELECT favorite_id FROM favorite WHERE favorite_user = '"
-                command += user + "' AND favorite_exercise = '"
+                command = "select favorite_id from favorite where favorite_user = '"
+                command += user + "' and favorite_exercise = '"
                 command += result['exercise_name'] + "';"
 
                 self.cur.execute(command)
                 favs_found = self.cur.fetchall()
 
                 if len(favs_found) == 0:
-                    result['favorite'] = False
+                    result['favorite'] = false
 
                 else:
                     result['favorite'] = True
 
             return search_results
 
-    ##  accepts three URL parameters, sets search criteria based on two of them, and calls get_page_exercise_search with the criteria and the third parameter as an optional user ID.
+    ##  accepts three url parameters, sets search criteria based on two of them, and calls get_page_exercise_search with the criteria and the third parameter as an optional user id.
     # @app.route('/exercise_details/<test_part>/<test_equipment>')
     # @app.route('/exercise_details/<test_part>/<test_equipment>/<user_id>')
 
     # @app.route('/register/<username>/<email>')
     def db_register_user(self, username, email):
-        with self as conn:
+        with self.conn as conn:
             self.cur = conn.cursor()
 
-            command = "SELECT * FROM account WHERE username = '"
-            command += username + "' OR email = '"
+            command = "select * from account where username = '"
+            command += username + "' or email = '"
             command += email + "';"
 
             self.cur.execute(command)
             existing_user = self.cur.fetchall()
 
             if len(existing_user) != 0:
-                return "Username or Email already in use"
+                return "username or email already in use"
 
             try:
-                command = "SELECT account_id FROM account;"
+                command = "select account_id from account;"
                 self.cur.execute(command)
 
                 curr_id = 0
@@ -248,7 +248,7 @@ class DB:
                         curr_id = index_id + 1
 
                 curr_id = str(curr_id)
-                command = "INSERT INTO account Values ("
+                command = "insert into account values ("
                 command += curr_id + ", '"
                 command += username + "', '"
                 command += email + "');"
@@ -256,84 +256,74 @@ class DB:
                 self.cur.execute(command)
                 self.conn.commit()
 
-                registration = "Successfully Registrated <br>User ID: "
-                registration += curr_id + "<br>Username: "
-                registration += username + "<br>Email Address: "
+                registration = "successfully registrated <br>user id: "
+                registration += curr_id + "<br>username: "
+                registration += username + "<br>email address: "
                 registration += email
 
                 return registration
 
             except:
-                return "Registration Failed"
+                return "registration failed"
 
-    ## log in a user by querying the account table for a matching username and email, and returns the user ID if found, or a "Login Failed" message if not
+    ## log in a user by querying the account table for a matching username and email, and returns the user id if found, or a "login failed" message if not
     # @app.route('/login/<username>/<email>')
     def db_auth(self, username, email):
-        with self.conn:
+        with self.conn as conn:
             self.cur = conn.cursor()
-            command = "SELECT account_id FROM account WHERE username = '"
-            command += username + "' AND email = '"
+            command = "select account_id from account where username = '"
+            command += username + "' and email = '"
             command += email + "';"
 
             self.cur.execute(command)
-            user_id = self.cur.fetchall()
-            self.conn.close()
-
-            try:
-                user_id = user_id[0][0]
-                user_id = str(user_id)
-                return user_id
-
-            except:
-                return "Login Failed: User Not Found"
+            user_id = self.cur.fetchall()[0][0]
+            return user_id
 
     '''
-    ## returns whether the given username and email combination exists in the database as a user, by calling another function and checking if the returned user ID is a digit 
+    ## returns whether the given username and email combination exists in the database as a user, by calling another function and checking if the returned user id is a digit 
     # @app.route('/authenticate/<username>/<email>')
     def db_authenticate(username, email):
         login = get_page_login(username, email)
         return [login.isdigit()]
     '''
 
-    #  adds a new exercise to the user's favorite list in a PostgreSQL database.
+    #  adds a new exercise to the user's favorite list in a postgresql database.
     # @app.route('/add_favorite/<user_id>/<exercise_id>')
-    def db_add_favorite_exercise(self, user_id, exercise_id):
-        with self as conn:
+    def db_add_favorite_exercise(self, user_id, exercise_name):
+        with self.conn as conn:
             self.cur = conn.cursor()
-            command = "SELECT username FROM account WHERE account_id = "
-            command += str(user_id) + ";"
+            command = f"select username from account where account_id = {user_id}"
 
             self.cur.execute(command)
             existing_user = self.cur.fetchall()
 
             if len(existing_user) == 0:
                 self.conn.close()
-                return "User Not Found"
+                return "user not found"
 
-            command = "SELECT exercise_name FROM exercise WHERE exercise_id = "
-            command += str(exercise_id) + ";"
+            command = f"select exercise_name from exercise where exercise_name = '{exercise_name}'";
 
             self.cur.execute(command)
             existing_exercise = self.cur.fetchall()
 
             if len(existing_exercise) == 0:
-                return "Exercise Not Found"
+                return "exercise not found"
 
             username = existing_user[0][0]
             exercise = existing_exercise[0][0]
 
-            command = "SELECT * FROM favorite WHERE favorite_user = '"
-            command += username + "' AND favorite_exercise = '"
+            command = "select * from favorite where favorite_user = '"
+            command += username + "' and favorite_exercise = '"
             command += exercise + "';"
 
             self.cur.execute(command)
             existing_user = self.cur.fetchall()
 
             if len(existing_user) != 0:
-                return "Favorite Already Exists"
+                return "favorite already exists"
 
             try:
-                command = "SELECT favorite_id FROM favorite;"
+                command = "select favorite_id from favorite;"
                 self.cur.execute(command)
 
                 curr_id = 0
@@ -346,7 +336,7 @@ class DB:
                         curr_id = index_id + 1
 
                 curr_id = str(curr_id)
-                command = "INSERT INTO favorite Values ("
+                command = "insert into favorite values ("
                 command += curr_id + ", '"
                 command += username + "', '"
                 command += exercise + "');"
@@ -354,36 +344,34 @@ class DB:
                 self.cur.execute(command)
                 conn.commit()
 
-                result = "Added New Favorite <br>Favorite ID: "
-                result += curr_id + "<br>Username: "
-                result += username + "<br>Exercise: "
+                result = "added new favorite <br>favorite id: "
+                result += curr_id + "<br>username: "
+                result += username + "<br>exercise: "
                 result += exercise
 
                 return result
 
             except:
-                return "Failed to Add New Favorite"
+                return "failed to add new favorite"
 
-    ## route for removing a user's favorite exercise from the database based on the user ID and exercise ID parameters
+    ## route for removing a user's favorite exercise from the database based on the user id and exercise id parameters
     # @app.route('/remove_favorite/<user_id>/<exercise_id>')
-    def db_remove_favorite_exercise(self, user_id, exercise_id):
-        with self as conn:
+    def db_remove_favorite_exercise(self, user_id, exercise_name):
+        with self.conn as conn:
             self.cur = conn.cursor()
 
-            command = "SELECT username FROM account WHERE account_id = "
-            command += str(user_id) + ";"
+            command = f"select username from account where account_id = {user_id};"
 
             self.cur.execute(command)
             existing_user = self.cur.fetchall()
 
             if len(existing_user) == 0:
-                return "User Not Found"
+                return "user not found"
 
-            command = "SELECT exercise_name FROM exercise WHERE exercise_id = "
-            command += str(exercise_id) + ";"
+            command = f"select exercise_name from exercise where exercise_name = '{exercise_name}';"
 
             self.cur.execute(command)
-            existing_exercise = c.fetchall()
+            existing_exercise = self.cur.fetchall()
 
             if len(existing_exercise) == 0:
                 return "Exercise Not Found"
@@ -421,7 +409,7 @@ class DB:
     # # gets the list of favorite exercises for a given user, retrieves details about the exercises from the
     # database, and returns them as a list of dictionaries @app.route('/user_favorites/<user_id>')
     def db_get_user_favorites(self, user_id):
-        with self as conn:
+        with self.conn as conn:
             self.cur = conn.cursor()
 
             command = "SELECT username FROM account WHERE account_id = "

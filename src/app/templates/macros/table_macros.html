@@ -28,7 +28,7 @@
         </thead>
         <tbody id='search-results-table-rows'>
                 {% for cell in data %}
-                    <tr data-selection={{ cell["exercise_name"] }}>
+                    <tr data-selection="{{ cell['exercise_name'] | tojson | safe }}">
 
                         {{ buttons_macro() }}
                         <th scope="row"> {{ helper.underscore_to_space(cell["exercise_name"]) }} </th>
