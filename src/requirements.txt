@@ -1,4 +1,0 @@
-Flask
-Gunicorn
-sympy
-psycopg2
