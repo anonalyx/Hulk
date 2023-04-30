@@ -96,13 +96,18 @@ def get_page_search_results(body_part, equipment):
 
 @app.route('/profile', methods=['GET'])
 def get_page_profile():
-    with DB() as db:
-        data = db.db_get_user_favorites(session['user_id'])
+    try:
+        with DB() as db:
+            data = db.db_get_user_favorites(session['user_id'])
 
-    headers = {"exercise": "Exercise",
-               "body_part": "Body Part",
-               "equipment": "Equipment"}
-    
+        headers = {"exercise": "Exercise",
+                   "body_part": "Body Part",
+                   "equipment": "Equipment"}
+    except Exception as e:
+        print('Get page profile failed')
+        return e
+
+
     return render_template('profile.html', data=data, headers=headers)
 
 # TODO
