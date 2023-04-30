@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, url_for, redirect, make_response, jsonify, session
 from src.app.calCounter import Cal_Counter
 from src.app.models.db_routes import DB
+from functools import wraps
+
 app = Flask(__name__)
 app.secret_key = 'OurSecret'
 
@@ -12,11 +14,24 @@ def index():
 '''
 
 
+def login_required(f):
+    print('redirecting to login page')
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return redirect(url_for('get_page_login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
 with DB() as db:
     db.db_drop()
     db.db_create_tables()
     db.db_populate_records()
+
+
+
 @app.route('/calculator', methods=['GET', 'POST'])
+@login_required
 def calculator():
     if request.method == 'GET':
         return render_template('calculator.html')
@@ -29,6 +44,7 @@ def calculator():
 
 
 @app.route('/calculate', methods=['POST'])
+@login_required
 def calculate():
     req = request.get_json()
 
@@ -59,6 +75,7 @@ def get_page_exercise_details():
 
 # TODO
 @app.route('/search', methods=['GET'])
+@login_required
 def get_search():
     with DB() as db:
         body_data = db.db_select_col_from_table('body_part', 'part_name')
@@ -70,6 +87,7 @@ def get_search():
 
 
 @app.route('/search_results/<body_part>/<equipment>', methods=['GET'])
+@login_required
 def get_page_search_results(body_part, equipment):
     print(body_part, equipment)
     try:
@@ -91,10 +109,10 @@ def get_page_search_results(body_part, equipment):
               "body_part": "Body Part",
               "equipment": "Equipment"}
 
-
     return render_template('search_results.html', data=data, headers=headers)
 
 @app.route('/profile', methods=['GET'])
+@login_required
 def get_page_profile():
     try:
         with DB() as db:
@@ -141,25 +159,24 @@ def authenticate():
     username = request.form['username']
     email = request.form['email']
     try:
-        db = DB()
-        # session['user_id'] = db.db_get_page_login(self, username, email)
-        session['username'] = username
-        session['email'] = email
+        with DB() as db:
+            session['user_id'] = db.db_auth(username, email)
+            session['email'] = email
+            print(f"user session id is {session['user_id']}")
         return redirect(url_for('home'))
-    except:
+    except Exception as e:
+        print(e)
         return redirect(url_for('get_page_login'))
-
-    with DB as db:
-        db.db_auth(username, email)
-    return redirect(url_for('home'))
 
 
 @app.route('/home', methods=['GET'])
+@login_required
 def home():
     return render_template('home.html')
 
 # TODO
 @app.route('/add_favorite_exercise', methods=['POST'])
+@login_required
 def add_favorite_exercise():
     print('adding favorite exercise')
     print(request.form)
@@ -180,6 +197,7 @@ def add_favorite_exercise():
 
 # TODO
 @app.route('/remove_favorite_exercise', methods=['POST'])
+@login_required
 def remove_favorite_exercise():
     print('removing favorite exercise')
     """ Removes an exercise from the user's favorites """

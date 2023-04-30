@@ -11,10 +11,11 @@ class DB:
         self.cur = None
         self.directory = os.path.dirname(os.path.abspath(__file__))
         self.isLocal = True
+        self.isTest = isTest
         self.localURL = "postgres://hulk_user:sJ7uTRAXdhTsJQGOLD9Yq0uhsVBchdAE@dpg-cgrkvt1mbg5e4kh44l70-a.oregon-postgres.render.com/hulk"
         self.deployedURL = "postgres://hulk_user:sJ7uTRAXdhTsJQGOLD9Yq0uhsVBchdAE@dpg-cgrkvt1mbg5e4kh44l70-a/hulk"
 
-        if isTest:
+        if self.isTest:
             self.tables = ["test_account", "test_body_part", "test_equipment", "test_exercise", "test_favorite"]
 
         else:
@@ -23,11 +24,11 @@ class DB:
 
     def __enter__(self):
         self.conn = psycopg2.connect(self.localURL) if self.isLocal else psycopg2.connect(self.deployedURL)
-        print(f'Connection successful: {self.conn}')
+        print(f'Connection successful: Test =  {self.isTest}')
         return self
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
-        print(f'Exiting connection: {self.conn}')
+        print(f'Exiting connection: Test = {self.isTest}')
         if self.conn is not None:
             self.conn.close()
 
@@ -276,8 +277,12 @@ class DB:
             command += email + "';"
 
             self.cur.execute(command)
-            user_id = self.cur.fetchall()[0][0]
-            return user_id
+            try:
+                user_id = self.cur.fetchone()[0]
+                return user_id
+            except Exception as e:
+                print(e)
+                raise Exception('No user found')
 
     '''
     ## returns whether the given username and email combination exists in the database as a user, by calling another function and checking if the returned user id is a digit 
