@@ -1,4 +1,5 @@
 import sys
+import re
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -13,6 +14,20 @@ def calCalc(calories):
     
     except:
         return 0
+    
+def outputParameters(model):
+    output = open("RunForestRun.txt", 'w')
+    model_variables = str(model.params)
+
+    pattern = re.compile(r"(\w+)\s+(-?\d+(.\d+)?)")
+    matches = pattern.findall(model_variables)
+
+    for match in matches:
+        param_name, param_value = match[0], match[1]
+        print(param_name, param_value)
+        output.write(f"{param_value}\n")
+
+    output.close()
     
 def target(goal, model):
     beta0, beta1 = model.params
@@ -65,6 +80,9 @@ model = smf.ols(
     data = train_data
 ).fit()
 
+outputParameters(model)
+
 calories = getInput()
 stepSim = calCalc(calories)
+
 print(stepSim, 'steps to burn', calories, 'calories')
