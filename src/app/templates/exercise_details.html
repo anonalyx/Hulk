@@ -1,10 +1,28 @@
 {% extends "navbar.html" %}
 {% block title %}Hulk - Search{% endblock %}
 {% block head %}
-    <script src="../static/js/search.js"></script>
-    <link rel="stylesheet" type="text/css" href="../static/css/search.css">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/exercise_details.css') }}">
+<script src="{{ url_for('static', filename='js/exercise_details.js') }}"></script>
 {% endblock %}
+
 {% block content %}
+    <div id='parent-div'>
+        <div id='exercise-details-container'>
+
+            <div id='title'>
+                <p> <strong>Exercise Name: </strong> {{ data['exercise_name'] }}</p>
+            </div>
+
+            <div id='content-container'>
+                <p> <strong>Body Part: </strong> {{ data['body_part_name'] }} </p>
+                <p> <strong>Equipment: </strong> {{ data['equipment_name'] }} </p>
+                <p> <strong>Description: </strong> {{ data['exercise_description'] }} </p>
+            </div>
+
+            <div id='favorites-button-container'>
+                <a class="btn" id="add-favorites-button" data-exercise="{{ data['exercise_name'] }}">Add to Favorites</a>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
-
