@@ -69,8 +69,17 @@ ROUTES:
 
 
 # TODO
-def get_page_exercise_details():
-    pass
+@app.route('/exercise_details/<exercise>', methods=['GET'])
+@login_required
+def get_page_exercise_details(exercise):
+    try:
+        with DB() as db:
+            data = db.db_get_page_exercise_details(exercise)
+    except Exception as e:
+        print(f'Error: {e}')
+        return
+
+    return render_template('exercise_details.html', data=data)
 
 
 # TODO
