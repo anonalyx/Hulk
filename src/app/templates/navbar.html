@@ -25,10 +25,14 @@
             <li class="nav-item">
                 <a class="nav-link" id="nav_calcalc_button" href="{{ url_for('calculator')}}">Calculator</a>
             </li>
+            {% if session['user_id'] %}
             <li class="nav-item">
                 <a class="nav-link" id="nav_profile_button" href="{{ url_for('get_page_profile') }}">Profile</a>
-
-          </li>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="nav_logout_button" href="{{ url_for('logout') }}">Log Out</a>
+            </li>
+            {% endif %}
         </ul>
       </div>
 
