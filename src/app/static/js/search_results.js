@@ -1,10 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
     const favoritesButtons = document.querySelectorAll("#favorites-button");
-    const searchTableRows = document.getElementById("search-results-table-rows")
+    const selectedRow = document.getElementById("table-rows")
 
-    searchTableRows.addEventListener("click", (event) => {
-        const row = event.target.closest("tr");
-        const exercise = row.dataset.selection;
+    selectedRow.addEventListener("click", (event) => {
+        if (event.target.nodeName === 'TH') {
+            const row = event.target.closest("tr");
+            const exercise_id = row.dataset.selection_id;
+
+            window.location.href = window.location.origin + '/exercise_details/' + exercise_id;
+        }
     });
 
     favoritesButtons.forEach((button) => {
