@@ -162,6 +162,7 @@ def authenticate():
         with DB() as db:
             session['user_id'] = db.db_auth(username, email)
             session['email'] = email
+            session['username'] = username
             print(f"user session id is {session['user_id']}")
         return redirect(url_for('home'))
     except Exception as e:
