@@ -16,6 +16,7 @@
         </tbody>
     </table>
 {% endmacro %}
+
 {% macro render_3_col_table(data, headers, buttons_macro) %}
     <table class="table three-col-table">
         <thead>
@@ -26,10 +27,9 @@
                 <th scope="col" id="search-table-title-4">{{ headers['equipment'] }} </th>
             </tr>
         </thead>
-        <tbody id='search-results-table-rows'>
+        <tbody id='table-rows'>
                 {% for cell in data %}
-                    <tr data-selection="{{ cell['exercise_name'] | tojson | safe }}">
-
+                    <tr data-selection_id = {{ cell['exercise_id'] }} data-selection="{{ cell['exercise_name'] | tojson | safe }}">
                         {{ buttons_macro() }}
                         <th scope="row"> {{ helper.underscore_to_space(cell["exercise_name"]) }} </th>
                         <th scope="row"> {{ helper.underscore_to_space(cell["part_name"]) }} </th>
@@ -39,6 +39,7 @@
         </tbody>
     </table>
 {% endmacro %}
+
 {% macro favorites_button() %}
     <th scope="row" id='favorites-button' data-selected='false' >
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="favorites-icon" viewBox="0 0 16 16">
@@ -46,6 +47,7 @@
         </svg>
     </th>
 {% endmacro %}
+
 {% macro delete_button() %}
     <th scope="row" id='delete-button'>
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" class="delete-icon" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
