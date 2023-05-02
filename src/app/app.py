@@ -103,7 +103,7 @@ def get_page_search_results(body_part, equipment):
         with DB() as db:
             print(db)
             print(dir(db))
-            data = db.db_get_exercise_search_results(body_part, equipment)
+            data = db.db_get_exercise_search_results(body_part, equipment, session['user_id'])
     except Exception as e:
         print(f'Error: {e}')
         return
@@ -171,11 +171,19 @@ def authenticate():
         with DB() as db:
             session['user_id'] = db.db_auth(username, email)
             session['email'] = email
+            session['username'] = username
             print(f"user session id is {session['user_id']}")
         return redirect(url_for('home'))
     except Exception as e:
         print(e)
         return redirect(url_for('get_page_login'))
+
+@app.route('/logout')
+@login_required
+def logout():
+    session.pop('user_id', None)
+    session.pop('email', None)
+    return redirect(url_for('get_page_login'))
 
 
 @app.route('/home', methods=['GET'])
@@ -183,7 +191,6 @@ def authenticate():
 def home():
     return render_template('home.html')
 
-# TODO
 @app.route('/add_favorite_exercise', methods=['POST'])
 @login_required
 def add_favorite_exercise():
@@ -204,7 +211,6 @@ def add_favorite_exercise():
         return {'success': False,
                 'message': 'Please log in or create an account to add favorites'}
 
-# TODO
 @app.route('/remove_favorite_exercise', methods=['POST'])
 @login_required
 def remove_favorite_exercise():
@@ -223,6 +229,3 @@ def remove_favorite_exercise():
     else:
         return {'success': False,
                 'message': 'Please log in or create an account to remove favorites'}
-# TODO
-def get_user_favorites():
-    pass

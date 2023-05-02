@@ -209,7 +209,7 @@ class DB:
                 favs_found = self.cur.fetchall()
 
                 if len(favs_found) == 0:
-                    result['favorite'] = false
+                    result['favorite'] = False
 
                 else:
                     result['favorite'] = True
@@ -285,7 +285,7 @@ class DB:
                 raise Exception('No user found')
 
     '''
-    ## returns whether the given username and email combination exists in the database as a user, by calling another function and checking if the returned user id is a digit 
+    ## returns whether the given username and email combination exists in the database as a user, by calling another function and checking if the returned user id is a digit
     # @app.route('/authenticate/<username>/<email>')
     def db_authenticate(username, email):
         login = get_page_login(username, email)
@@ -452,7 +452,8 @@ class DB:
                         'exercise_id': exercise[0],
                         'exercise_name': exercise[1],
                         'part_name': exercise[3],
-                        'equipment_name': exercise[4]
+                        'equipment_name': exercise[4],
+                        'favorite': True
                     }
                     exercise_list.append(details)
 

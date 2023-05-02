@@ -8,6 +8,21 @@
     margin-top: 25px;
 }
 
+#logout {
+    width: 200px;
+    border: black solid 1px;
+    display: block;
+    margin: 50px auto;
+
+    color:rgb(12, 177, 12);
+}
+
+#logout:hover{
+    background-color:rgb(12, 177, 12);
+    color: black;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
 .favorites-table-container{
     display: flex;
     flex-direction: row;
@@ -16,7 +31,7 @@
 
 .table-wrapper {
     width: 100%;
-    max-width: 800px; 
+    max-width: 800px;
 }
 
 .three-col-table {
