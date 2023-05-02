@@ -1,5 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
     const deleteButtons = document.querySelectorAll("#delete-button");
+    const selectedRow = document.getElementById("table-rows")
+
+    selectedRow.addEventListener("click", (event) => {
+        if (event.target.nodeName === 'TH') {
+            const row = event.target.closest("tr");
+            const exercise_id = row.dataset.selection_id;
+
+            window.location.href = window.location.origin + '/exercise_details/' + exercise_id;
+        }
+    });
 
     deleteButtons.forEach((button) => {
         button.addEventListener("click", (event) => {

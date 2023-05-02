@@ -16,6 +16,7 @@
         </tbody>
     </table>
 {% endmacro %}
+
 {% macro render_3_col_table(data, headers, buttons_macro) %}
     <table class="table three-col-table">
         <thead>
@@ -26,9 +27,10 @@
                 <th scope="col" id="search-table-title-4">{{ headers['equipment'] }} </th>
             </tr>
         </thead>
-        <tbody id='search-results-table-rows'>
+        <tbody id='table-rows'>
                 {% for cell in data %}
-                    <tr data-selection="{{ cell['exercise_name'] | tojson | safe }}">
+
+                    <tr data-selection_id = {{ cell['exercise_id'] }} data-selection="{{ cell['exercise_name'] | tojson | safe }}">
 
                         {{ buttons_macro(cell['favorite']) }}
                         <th scope="row"> {{ helper.underscore_to_space(cell["exercise_name"]) }} </th>
