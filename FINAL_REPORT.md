@@ -33,9 +33,10 @@
         <li>Git: anonalyx</li>
     </ul>
   </ul>
+  
 ### Links: 
 
-Project Tracker: https://www.atlassian.com/software/jira
+Project Tracker: https://projhulk.atlassian.net/jira/software/projects/HULK/boards/1
 
 Video: https://www.youtube.com/watch?v=9Fo9Bau6Tl8
 
