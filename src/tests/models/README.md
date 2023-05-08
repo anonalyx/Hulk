@@ -2,7 +2,7 @@
 
 ## Test Suite for Workout Tracking Application
 
-This file contains a series of unit tests for the workout tracking application. These tests are designed to ensure the correct functionality of the application, specifically with regards to database interactions and manipulation.
+This file contains a series of unit tests for the Hulk web application. These tests are designed to ensure the correct functionality of the application, specifically with regards to database interactions and manipulation.
 
 ### File Contents
 
@@ -42,5 +42,6 @@ This file contains a series of unit tests for the workout tracking application. 
 
 16. `test_remove_favorite_exercise()`: Tests the `remove_favorite_exercise()` function in the application.
 
-To run the test suite, execute the following command:
+To run the test suite, execute the following command from the top level directory and the tests will automatically be discovered:
 
+python -m unittest 
